@@ -1,10 +1,15 @@
 context("Tiny CoDA Functions")
 
 x <- matrix(runif(300), 100, 3)
-x <- miniclo(x)
+x <- clo(x)
 
-test_that("miniclo sums to 1", {
+test_that("clo sums to 1", {
   expect_equal(colSums(x), rep(1, ncol(x)))
+})
+
+test_that("center sums to 0", {
+  x <- matrix(runif(300), 100, 3)
+  expect_equal(colSums(center(x)), rep(0, ncol(x)))
 })
 
 test_that("alrContrast correct", {
@@ -33,13 +38,14 @@ test_that("ilrContrast correct", {
 test_that("clrContrast correct", {
   B <- matrix(-1, 4, 4) + 4*diag(4)
   B <- B/4
-  expect_equal(clrContrast(4), B)
+  expect_equal(clrContrast(4, FALSE), B)
+  expect_equal(clrContrast(4, TRUE), diag(4))
 })
 
 
 test_that("glr and glrInv are inverses and correct", {
   X <- abs(matrix(rnorm(10), 5, 2))
-  X <- miniclo(X)
+  X <- clo(X)
   V <- ilrContrast(5)
   Y <- glr(X, V)
   
@@ -52,7 +58,7 @@ test_that("glr and glrInv are inverses and correct", {
 
 test_that("alr and alrInv are inverses and correct", {
   X <- abs(matrix(rnorm(10), 5, 2))
-  X <- miniclo(X)
+  X <- clo(X)
   Y <- alr(X, 3)
   Y.manual <- X[-3,]
   Y.manual <- sweep(Y.manual, 2, X[3,], FUN="/")
@@ -65,5 +71,28 @@ test_that("alr and alrInv are inverses and correct", {
 })
 
 
+test_that("clr and clrInv are inverses and correct", {
+  X <- abs(matrix(rnorm(10), 5, 2))
+  X <- clo(X)
+  Y <- clr(X)
+  Y.manual <- glr(X, clrContrast(5, FALSE))
+  # Correctness
+  expect_equal(Y, Y.manual)
+  
+  # Inverse - and alrInv by association
+  expect_equal(X, clrInv(Y))
+})
+
+test_that("ilr and ilrInv are inverses and correct", {
+  X <- abs(matrix(rnorm(10), 5, 2))
+  X <- clo(X)
+  Y <- ilr(X)
+  Y.manual <- ilr(X, ilrContrast(5))
+  # Correctness
+  expect_equal(Y, Y.manual)
+  
+  # Inverse - and alrInv by association
+  expect_equal(X, ilrInv(Y))
+})
 
 

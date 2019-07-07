@@ -6,14 +6,25 @@
 
 using namespace Rcpp;
 
-// miniclo
-Eigen::MatrixXd miniclo(Eigen::Map<Eigen::MatrixXd> X);
-RcppExport SEXP _RcppCoDA_miniclo(SEXP XSEXP) {
+// clo
+Eigen::MatrixXd clo(Eigen::Map<Eigen::MatrixXd> X);
+RcppExport SEXP _RcppCoDA_clo(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(miniclo(X));
+    rcpp_result_gen = Rcpp::wrap(clo(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// center
+Eigen::MatrixXd center(Eigen::Map<Eigen::MatrixXd> X);
+RcppExport SEXP _RcppCoDA_center(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(center(X));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -30,6 +41,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// clrContrast
+Eigen::MatrixXd clrContrast(int D, bool inv);
+RcppExport SEXP _RcppCoDA_clrContrast(SEXP DSEXP, SEXP invSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type D(DSEXP);
+    Rcpp::traits::input_parameter< bool >::type inv(invSEXP);
+    rcpp_result_gen = Rcpp::wrap(clrContrast(D, inv));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ilrContrast
 Eigen::MatrixXd ilrContrast(int D);
 RcppExport SEXP _RcppCoDA_ilrContrast(SEXP DSEXP) {
@@ -38,17 +61,6 @@ BEGIN_RCPP
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< int >::type D(DSEXP);
     rcpp_result_gen = Rcpp::wrap(ilrContrast(D));
-    return rcpp_result_gen;
-END_RCPP
-}
-// clrContrast
-Eigen::MatrixXd clrContrast(int D);
-RcppExport SEXP _RcppCoDA_clrContrast(SEXP DSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type D(DSEXP);
-    rcpp_result_gen = Rcpp::wrap(clrContrast(D));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -100,16 +112,67 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// clr
+Eigen::MatrixXd clr(Eigen::Map<Eigen::MatrixXd>& X);
+RcppExport SEXP _RcppCoDA_clr(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(clr(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// clrInv
+Eigen::MatrixXd clrInv(Eigen::Map<Eigen::MatrixXd>& X);
+RcppExport SEXP _RcppCoDA_clrInv(SEXP XSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    rcpp_result_gen = Rcpp::wrap(clrInv(X));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilr
+Eigen::MatrixXd ilr(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
+RcppExport SEXP _RcppCoDA_ilr(SEXP XSEXP, SEXP VSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> >::type V(VSEXP);
+    rcpp_result_gen = Rcpp::wrap(ilr(X, V));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilrInv
+Eigen::MatrixXd ilrInv(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
+RcppExport SEXP _RcppCoDA_ilrInv(SEXP XSEXP, SEXP VSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> >::type V(VSEXP);
+    rcpp_result_gen = Rcpp::wrap(ilrInv(X, V));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_RcppCoDA_miniclo", (DL_FUNC) &_RcppCoDA_miniclo, 1},
+    {"_RcppCoDA_clo", (DL_FUNC) &_RcppCoDA_clo, 1},
+    {"_RcppCoDA_center", (DL_FUNC) &_RcppCoDA_center, 1},
     {"_RcppCoDA_alrContrast", (DL_FUNC) &_RcppCoDA_alrContrast, 3},
+    {"_RcppCoDA_clrContrast", (DL_FUNC) &_RcppCoDA_clrContrast, 2},
     {"_RcppCoDA_ilrContrast", (DL_FUNC) &_RcppCoDA_ilrContrast, 1},
-    {"_RcppCoDA_clrContrast", (DL_FUNC) &_RcppCoDA_clrContrast, 1},
     {"_RcppCoDA_glr", (DL_FUNC) &_RcppCoDA_glr, 2},
     {"_RcppCoDA_glrInv", (DL_FUNC) &_RcppCoDA_glrInv, 2},
     {"_RcppCoDA_alr", (DL_FUNC) &_RcppCoDA_alr, 2},
     {"_RcppCoDA_alrInv", (DL_FUNC) &_RcppCoDA_alrInv, 2},
+    {"_RcppCoDA_clr", (DL_FUNC) &_RcppCoDA_clr, 1},
+    {"_RcppCoDA_clrInv", (DL_FUNC) &_RcppCoDA_clrInv, 1},
+    {"_RcppCoDA_ilr", (DL_FUNC) &_RcppCoDA_ilr, 2},
+    {"_RcppCoDA_ilrInv", (DL_FUNC) &_RcppCoDA_ilrInv, 2},
     {NULL, NULL, 0}
 };
 

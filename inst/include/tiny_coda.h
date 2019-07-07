@@ -21,7 +21,7 @@ namespace coda {
   //' @param X matrix
   //' @return matrix of same dimension as X
   template <typename T>
-  Eigen::MatrixXd miniclo(Eigen::DenseBase<T>& X){
+  Eigen::MatrixXd clo(Eigen::DenseBase<T>& X){
     VectorXd s = X.colwise().sum();
     int c = X.cols();
     MatrixXd Y(X.rows(), X.cols());
@@ -29,6 +29,15 @@ namespace coda {
     return Y;
   }
   
+  //' Center opteration - subtract each column by column mean
+  //' @param X matrix
+  //' @return matrix of same dimension as X
+  template <typename T>
+  Eigen::MatrixXd center(Eigen::DenseBase<T>& X){
+    VectorXd n = X.colwise().mean();
+    X.rowwise() -= n.transpose();
+    return X;
+  }
   
   //' Create alr contrast matrix
   //' @param D total number of parts
@@ -90,12 +99,18 @@ namespace coda {
   
   //' Create CLR contrast matrix
   //' @param D total number of parts
+  //' @param inv (is this being used for the clr or clrInv?)
   //' @return D x D contrast matrix 
-  Eigen::MatrixXd clrContrast(int D){
+  Eigen::MatrixXd clrContrast(int D, bool inv){
     if (D < 2) throw std::invalid_argument("D must be >1");
-    MatrixXd B = -MatrixXd::Ones(D,D);
-    B.diagonal().array() += D;
-    return B.array()/D;
+    if (!inv){
+      MatrixXd B = -MatrixXd::Ones(D,D);
+      B.diagonal().array() += D;
+      return B.array()/D;  
+    } else {
+      MatrixXd B = MatrixXd::Identity(D,D);
+      return B;
+    }
   }
   
   
@@ -115,7 +130,7 @@ namespace coda {
   Eigen::MatrixXd glrInv(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV>& V){
     MatrixXd Y = V.transpose()*X;
     Y = Y.array().exp().matrix();
-    return miniclo(Y);
+    return clo(Y);
   }
   
   
@@ -131,11 +146,12 @@ namespace coda {
   //' Generalized LR Inverse Transform
   //' @param X data (coords x samples aka P x N)
   //' @param V contrast matrix (P x D)
+  //' @export
   template <typename TX, typename TV>
   Eigen::MatrixXd glrInv(Eigen::MatrixBase<TX>& X, Eigen::SparseMatrixBase<TV>& V){
     MatrixXd Y = V.transpose()*X;
     Y = Y.array().exp().matrix();
-    return miniclo(Y);
+    return clo(Y);
   }
 
   //' Additive LR Transform
@@ -158,6 +174,57 @@ namespace coda {
     return glrInv(X, B);
   }
   
+  //' Centered LR Transform
+  //' @param X data (parts x samples aka D x N)
+  template <typename T>
+  Eigen::MatrixXd clr(Eigen::MatrixBase<T>& X){
+    MatrixXd Y = X.array().log().matrix();
+    return center(Y);
+    //MatrixXd V = clrContrast(X.cols(), false);
+    //return glr(X, V);
+  }
+  
+  //' Inverse Centered LR Transform
+  //' @param X data (coords x samples aka P x N) here P = D because its the CLR
+  template <typename T>
+  Eigen::MatrixXd clrInv(Eigen::MatrixBase<T>& X){
+    MatrixXd Y = X.array().exp().matrix();
+    return clo(Y);
+    //MatrixXd V = clrContrast(X.cols(), true);
+    //return glrInv(X, V);
+  }
+  
+  //' Isometric LR Transform
+  //' @param X data (parts x samples aka D x N)
+  //' @param V contrast matrix (P x D)
+  template <typename TX, typename TV>
+  Eigen::MatrixXd ilr(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV>& V){
+    return glr(X, V);
+  }
+  
+  //' Inverse Isometric LR Transform
+  //' @param X data (coords x samples aka P x N) 
+  //' @param V contrast matrix (P x D)
+  template <typename TX, typename TV>
+  Eigen::MatrixXd ilrInv(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV>& V){
+    return glrInv(X, V);
+  }
+  
+  //' Isometric LR Transform - default basis
+  //' @param X data (parts x samples aka D x N)
+  template <typename TX>
+  Eigen::MatrixXd ilr(Eigen::MatrixBase<TX>& X){
+    MatrixXd V = ilrContrast(X.rows());
+    return glr(X, V);
+  }
+  
+  //' Inverse Isometric LR Transform - default basis
+  //' @param X data (coords x samples aka P x N) 
+  template <typename TX>
+  Eigen::MatrixXd ilrInv(Eigen::MatrixBase<TX>& X){
+    MatrixXd V = ilrContrast(X.rows()+1);
+    return glrInv(X, V);
+  }
 }
 
 
