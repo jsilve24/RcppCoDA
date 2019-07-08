@@ -15,7 +15,7 @@ vec_to_array <- function(x){
   }
   x
 }
-  
+
 #' Functions for setting up transforms and handing weird arrays 
 #' @param X array
 #' @param b part/coord index in array
