@@ -6,25 +6,25 @@
 
 using namespace Rcpp;
 
-// clo
-Eigen::MatrixXd clo(Eigen::Map<Eigen::MatrixXd> X);
-RcppExport SEXP _RcppCoDA_clo(SEXP XSEXP) {
+// clo_internal
+Eigen::MatrixXd clo_internal(Eigen::Map<Eigen::MatrixXd> X);
+RcppExport SEXP _RcppCoDA_clo_internal(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(clo(X));
+    rcpp_result_gen = Rcpp::wrap(clo_internal(X));
     return rcpp_result_gen;
 END_RCPP
 }
-// center
-Eigen::MatrixXd center(Eigen::Map<Eigen::MatrixXd> X);
-RcppExport SEXP _RcppCoDA_center(SEXP XSEXP) {
+// center_internal
+Eigen::MatrixXd center_internal(Eigen::Map<Eigen::MatrixXd> X);
+RcppExport SEXP _RcppCoDA_center_internal(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd> >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(center(X));
+    rcpp_result_gen = Rcpp::wrap(center_internal(X));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -64,115 +64,115 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// glr
-Eigen::MatrixXd glr(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V);
-RcppExport SEXP _RcppCoDA_glr(SEXP XSEXP, SEXP VSEXP) {
+// glr_internal
+Eigen::MatrixXd glr_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V);
+RcppExport SEXP _RcppCoDA_glr_internal(SEXP XSEXP, SEXP VSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V(VSEXP);
-    rcpp_result_gen = Rcpp::wrap(glr(X, V));
+    rcpp_result_gen = Rcpp::wrap(glr_internal(X, V));
     return rcpp_result_gen;
 END_RCPP
 }
-// glrInv
-Eigen::MatrixXd glrInv(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V);
-RcppExport SEXP _RcppCoDA_glrInv(SEXP XSEXP, SEXP VSEXP) {
+// glrInv_internal
+Eigen::MatrixXd glrInv_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V);
+RcppExport SEXP _RcppCoDA_glrInv_internal(SEXP XSEXP, SEXP VSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V(VSEXP);
-    rcpp_result_gen = Rcpp::wrap(glrInv(X, V));
+    rcpp_result_gen = Rcpp::wrap(glrInv_internal(X, V));
     return rcpp_result_gen;
 END_RCPP
 }
-// alr
-Eigen::MatrixXd alr(Eigen::Map<Eigen::MatrixXd>& X, int d);
-RcppExport SEXP _RcppCoDA_alr(SEXP XSEXP, SEXP dSEXP) {
+// alr_internal
+Eigen::MatrixXd alr_internal(Eigen::Map<Eigen::MatrixXd>& X, int d);
+RcppExport SEXP _RcppCoDA_alr_internal(SEXP XSEXP, SEXP dSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
     Rcpp::traits::input_parameter< int >::type d(dSEXP);
-    rcpp_result_gen = Rcpp::wrap(alr(X, d));
+    rcpp_result_gen = Rcpp::wrap(alr_internal(X, d));
     return rcpp_result_gen;
 END_RCPP
 }
-// alrInv
-Eigen::MatrixXd alrInv(Eigen::Map<Eigen::MatrixXd>& X, int d);
-RcppExport SEXP _RcppCoDA_alrInv(SEXP XSEXP, SEXP dSEXP) {
+// alrInv_internal
+Eigen::MatrixXd alrInv_internal(Eigen::Map<Eigen::MatrixXd>& X, int d);
+RcppExport SEXP _RcppCoDA_alrInv_internal(SEXP XSEXP, SEXP dSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
     Rcpp::traits::input_parameter< int >::type d(dSEXP);
-    rcpp_result_gen = Rcpp::wrap(alrInv(X, d));
+    rcpp_result_gen = Rcpp::wrap(alrInv_internal(X, d));
     return rcpp_result_gen;
 END_RCPP
 }
-// clr
-Eigen::MatrixXd clr(Eigen::Map<Eigen::MatrixXd>& X);
-RcppExport SEXP _RcppCoDA_clr(SEXP XSEXP) {
+// clr_internal
+Eigen::MatrixXd clr_internal(Eigen::Map<Eigen::MatrixXd>& X);
+RcppExport SEXP _RcppCoDA_clr_internal(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(clr(X));
+    rcpp_result_gen = Rcpp::wrap(clr_internal(X));
     return rcpp_result_gen;
 END_RCPP
 }
-// clrInv
-Eigen::MatrixXd clrInv(Eigen::Map<Eigen::MatrixXd>& X);
-RcppExport SEXP _RcppCoDA_clrInv(SEXP XSEXP) {
+// clrInv_internal
+Eigen::MatrixXd clrInv_internal(Eigen::Map<Eigen::MatrixXd>& X);
+RcppExport SEXP _RcppCoDA_clrInv_internal(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(clrInv(X));
+    rcpp_result_gen = Rcpp::wrap(clrInv_internal(X));
     return rcpp_result_gen;
 END_RCPP
 }
-// ilr
-Eigen::MatrixXd ilr(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
-RcppExport SEXP _RcppCoDA_ilr(SEXP XSEXP, SEXP VSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
-    Rcpp::traits::input_parameter< Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> >::type V(VSEXP);
-    rcpp_result_gen = Rcpp::wrap(ilr(X, V));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ilrInv
-Eigen::MatrixXd ilrInv(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
-RcppExport SEXP _RcppCoDA_ilrInv(SEXP XSEXP, SEXP VSEXP) {
+// ilr_internal
+Eigen::MatrixXd ilr_internal(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
+RcppExport SEXP _RcppCoDA_ilr_internal(SEXP XSEXP, SEXP VSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
     Rcpp::traits::input_parameter< Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> >::type V(VSEXP);
-    rcpp_result_gen = Rcpp::wrap(ilrInv(X, V));
+    rcpp_result_gen = Rcpp::wrap(ilr_internal(X, V));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilrInv_internal
+Eigen::MatrixXd ilrInv_internal(Eigen::Map<Eigen::MatrixXd>& X, Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> V);
+RcppExport SEXP _RcppCoDA_ilrInv_internal(SEXP XSEXP, SEXP VSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd>&> >::type V(VSEXP);
+    rcpp_result_gen = Rcpp::wrap(ilrInv_internal(X, V));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_RcppCoDA_clo", (DL_FUNC) &_RcppCoDA_clo, 1},
-    {"_RcppCoDA_center", (DL_FUNC) &_RcppCoDA_center, 1},
+    {"_RcppCoDA_clo_internal", (DL_FUNC) &_RcppCoDA_clo_internal, 1},
+    {"_RcppCoDA_center_internal", (DL_FUNC) &_RcppCoDA_center_internal, 1},
     {"_RcppCoDA_alrContrast", (DL_FUNC) &_RcppCoDA_alrContrast, 3},
     {"_RcppCoDA_clrContrast", (DL_FUNC) &_RcppCoDA_clrContrast, 2},
     {"_RcppCoDA_ilrContrast", (DL_FUNC) &_RcppCoDA_ilrContrast, 1},
-    {"_RcppCoDA_glr", (DL_FUNC) &_RcppCoDA_glr, 2},
-    {"_RcppCoDA_glrInv", (DL_FUNC) &_RcppCoDA_glrInv, 2},
-    {"_RcppCoDA_alr", (DL_FUNC) &_RcppCoDA_alr, 2},
-    {"_RcppCoDA_alrInv", (DL_FUNC) &_RcppCoDA_alrInv, 2},
-    {"_RcppCoDA_clr", (DL_FUNC) &_RcppCoDA_clr, 1},
-    {"_RcppCoDA_clrInv", (DL_FUNC) &_RcppCoDA_clrInv, 1},
-    {"_RcppCoDA_ilr", (DL_FUNC) &_RcppCoDA_ilr, 2},
-    {"_RcppCoDA_ilrInv", (DL_FUNC) &_RcppCoDA_ilrInv, 2},
+    {"_RcppCoDA_glr_internal", (DL_FUNC) &_RcppCoDA_glr_internal, 2},
+    {"_RcppCoDA_glrInv_internal", (DL_FUNC) &_RcppCoDA_glrInv_internal, 2},
+    {"_RcppCoDA_alr_internal", (DL_FUNC) &_RcppCoDA_alr_internal, 2},
+    {"_RcppCoDA_alrInv_internal", (DL_FUNC) &_RcppCoDA_alrInv_internal, 2},
+    {"_RcppCoDA_clr_internal", (DL_FUNC) &_RcppCoDA_clr_internal, 1},
+    {"_RcppCoDA_clrInv_internal", (DL_FUNC) &_RcppCoDA_clrInv_internal, 1},
+    {"_RcppCoDA_ilr_internal", (DL_FUNC) &_RcppCoDA_ilr_internal, 2},
+    {"_RcppCoDA_ilrInv_internal", (DL_FUNC) &_RcppCoDA_ilrInv_internal, 2},
     {NULL, NULL, 0}
 };
 
