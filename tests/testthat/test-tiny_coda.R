@@ -41,13 +41,13 @@ test_that("alrContrast correct", {
   B.true <- cbind(diag(3), -1)
   expect_equal(B.inv.true, alrContrast(4,4, TRUE))
   expect_equal(B.true, alrContrast(4,4,FALSE))
-  expect_error(alrContrast(4, 5, inv=TRUE))
+  expect_error(alrContrast(5, 4, inv=TRUE))
   
   B.true <- matrix(0, 4, 5)
   foo <- cbind(1:4, c(1,2,4,5))
   B.true[foo] <- 1
   B.true[,3] <- -1
-  expect_equal(B.true, alrContrast(5, 3, FALSE))
+  expect_equal(B.true, alrContrast(3, 5, FALSE))
 }) 
 
 test_that("ilrContrast correct", {

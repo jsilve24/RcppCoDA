@@ -255,6 +255,206 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// ilr2ilr
+Eigen::MatrixXd ilr2ilr(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V1, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_ilr2ilr(SEXP XSEXP, SEXP V1SEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilr2ilr(X, V1, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilr2clr
+Eigen::MatrixXd ilr2clr(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V1);
+RcppExport SEXP _RcppCoDA_ilr2clr(SEXP XSEXP, SEXP V1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilr2clr(X, V1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// clr2ilr
+Eigen::MatrixXd clr2ilr(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_clr2ilr(SEXP XSEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(clr2ilr(X, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alr2clr
+Eigen::MatrixXd alr2clr(Eigen::Map<Eigen::MatrixXd>& X, int d1);
+RcppExport SEXP _RcppCoDA_alr2clr(SEXP XSEXP, SEXP d1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    rcpp_result_gen = Rcpp::wrap(alr2clr(X, d1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// clr2alr
+Eigen::MatrixXd clr2alr(Eigen::Map<Eigen::MatrixXd>& X, int d2);
+RcppExport SEXP _RcppCoDA_clr2alr(SEXP XSEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(clr2alr(X, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alr2alr
+Eigen::MatrixXd alr2alr(Eigen::Map<Eigen::MatrixXd>& X, int d1, int d2);
+RcppExport SEXP _RcppCoDA_alr2alr(SEXP XSEXP, SEXP d1SEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(alr2alr(X, d1, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilr2alr
+Eigen::MatrixXd ilr2alr(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V1, int d2);
+RcppExport SEXP _RcppCoDA_ilr2alr(SEXP XSEXP, SEXP V1SEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilr2alr(X, V1, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alr2ilr
+Eigen::MatrixXd alr2ilr(Eigen::Map<Eigen::MatrixXd>& X, int d1, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_alr2ilr(SEXP XSEXP, SEXP d1SEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(alr2ilr(X, d1, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilrvar2ilrvar
+Eigen::MatrixXd ilrvar2ilrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V1, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_ilrvar2ilrvar(SEXP SigmaSEXP, SEXP V1SEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilrvar2ilrvar(Sigma, V1, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilrvar2clrvar
+Eigen::MatrixXd ilrvar2clrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V1);
+RcppExport SEXP _RcppCoDA_ilrvar2clrvar(SEXP SigmaSEXP, SEXP V1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilrvar2clrvar(Sigma, V1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// clrvar2ilrvar
+Eigen::MatrixXd clrvar2ilrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_clrvar2ilrvar(SEXP SigmaSEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(clrvar2ilrvar(Sigma, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alrvar2clrvar
+Eigen::MatrixXd alrvar2clrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, int d1);
+RcppExport SEXP _RcppCoDA_alrvar2clrvar(SEXP SigmaSEXP, SEXP d1SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    rcpp_result_gen = Rcpp::wrap(alrvar2clrvar(Sigma, d1));
+    return rcpp_result_gen;
+END_RCPP
+}
+// clrvar2alrvar
+Eigen::MatrixXd clrvar2alrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, int d2);
+RcppExport SEXP _RcppCoDA_clrvar2alrvar(SEXP SigmaSEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(clrvar2alrvar(Sigma, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alrvar2alrvar
+Eigen::MatrixXd alrvar2alrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, int d1, int d2);
+RcppExport SEXP _RcppCoDA_alrvar2alrvar(SEXP SigmaSEXP, SEXP d1SEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(alrvar2alrvar(Sigma, d1, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ilrvar2alrvar
+Eigen::MatrixXd ilrvar2alrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V1, int d2);
+RcppExport SEXP _RcppCoDA_ilrvar2alrvar(SEXP SigmaSEXP, SEXP V1SEXP, SEXP d2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V1(V1SEXP);
+    Rcpp::traits::input_parameter< int >::type d2(d2SEXP);
+    rcpp_result_gen = Rcpp::wrap(ilrvar2alrvar(Sigma, V1, d2));
+    return rcpp_result_gen;
+END_RCPP
+}
+// alrvar2ilrvar
+Eigen::MatrixXd alrvar2ilrvar(Eigen::Map<Eigen::MatrixXd>& Sigma, int d1, Eigen::Map<Eigen::MatrixXd>& V2);
+RcppExport SEXP _RcppCoDA_alrvar2ilrvar(SEXP SigmaSEXP, SEXP d1SEXP, SEXP V2SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    Rcpp::traits::input_parameter< int >::type d1(d1SEXP);
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type V2(V2SEXP);
+    rcpp_result_gen = Rcpp::wrap(alrvar2ilrvar(Sigma, d1, V2));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RcppCoDA_clo_internal", (DL_FUNC) &_RcppCoDA_clo_internal, 1},
@@ -278,6 +478,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RcppCoDA_caContrast", (DL_FUNC) &_RcppCoDA_caContrast, 2},
     {"_RcppCoDA_acContrast", (DL_FUNC) &_RcppCoDA_acContrast, 2},
     {"_RcppCoDA_aaContrast", (DL_FUNC) &_RcppCoDA_aaContrast, 3},
+    {"_RcppCoDA_ilr2ilr", (DL_FUNC) &_RcppCoDA_ilr2ilr, 3},
+    {"_RcppCoDA_ilr2clr", (DL_FUNC) &_RcppCoDA_ilr2clr, 2},
+    {"_RcppCoDA_clr2ilr", (DL_FUNC) &_RcppCoDA_clr2ilr, 2},
+    {"_RcppCoDA_alr2clr", (DL_FUNC) &_RcppCoDA_alr2clr, 2},
+    {"_RcppCoDA_clr2alr", (DL_FUNC) &_RcppCoDA_clr2alr, 2},
+    {"_RcppCoDA_alr2alr", (DL_FUNC) &_RcppCoDA_alr2alr, 3},
+    {"_RcppCoDA_ilr2alr", (DL_FUNC) &_RcppCoDA_ilr2alr, 3},
+    {"_RcppCoDA_alr2ilr", (DL_FUNC) &_RcppCoDA_alr2ilr, 3},
+    {"_RcppCoDA_ilrvar2ilrvar", (DL_FUNC) &_RcppCoDA_ilrvar2ilrvar, 3},
+    {"_RcppCoDA_ilrvar2clrvar", (DL_FUNC) &_RcppCoDA_ilrvar2clrvar, 2},
+    {"_RcppCoDA_clrvar2ilrvar", (DL_FUNC) &_RcppCoDA_clrvar2ilrvar, 2},
+    {"_RcppCoDA_alrvar2clrvar", (DL_FUNC) &_RcppCoDA_alrvar2clrvar, 2},
+    {"_RcppCoDA_clrvar2alrvar", (DL_FUNC) &_RcppCoDA_clrvar2alrvar, 2},
+    {"_RcppCoDA_alrvar2alrvar", (DL_FUNC) &_RcppCoDA_alrvar2alrvar, 3},
+    {"_RcppCoDA_ilrvar2alrvar", (DL_FUNC) &_RcppCoDA_ilrvar2alrvar, 3},
+    {"_RcppCoDA_alrvar2ilrvar", (DL_FUNC) &_RcppCoDA_alrvar2ilrvar, 3},
     {NULL, NULL, 0}
 };
 
