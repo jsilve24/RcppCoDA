@@ -88,3 +88,72 @@ Eigen::MatrixXd ilrInv_internal(Eigen::Map<Eigen::MatrixXd>& X,
     return coda::ilrInv(X, VV);
   }
 }
+  
+//' Transfer Contrasts for transfering from one coordinate system to another
+//' @param Sigma covariance matrix in specified transformed space
+//' @param V ILR contrast matrix (i.e., transformation matrix of ILR)
+//' @param V1 ILR contrast matrix of basis Sigma is already in
+//' @param V2 ILR contrast matrix of basis Sigma is desired in
+//' @param d1 alr reference element Sigma is already expressed with respec to
+//' @param d2 alr reference element Sigma is to be expressed with respect to
+//' @return matrix
+//' @name convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd iiContrast(Eigen::Map<Eigen::MatrixXd>& V1, 
+                           Eigen::Map<Eigen::MatrixXd>& V2){
+  return coda::iiContrast(V1, V2);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd icContrast(Eigen::Map<Eigen::MatrixXd>& V1){
+  return coda::icContrast(V1);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd ciContrast(Eigen::Map<Eigen::MatrixXd>& V2){
+  return coda::ciContrast(V2);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd iaContrast(Eigen::Map<Eigen::MatrixXd>& V1, int d2, int D){
+  return coda::iaContrast(V1, d2, D);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd aiContrast(int d2, Eigen::Map<Eigen::MatrixXd>& V2, int D){
+  return coda::aiContrast(d2, V2, D);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd caContrast(int d2, int D){
+  return coda::caContrast(d2, D);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd acContrast(int d1, int D){
+  return coda::acContrast(d1, D);
+}
+
+//' @rdname convert_coda
+//' @export
+// [[Rcpp::export]]
+Eigen::MatrixXd aaContrast(int d1, int d2, int D){
+  return coda::aaContrast(d1, d2, D);
+}
+
+
+
+ 

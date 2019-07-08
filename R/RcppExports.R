@@ -58,3 +58,59 @@ ilrInv_internal <- function(X, V = NULL) {
     .Call('_RcppCoDA_ilrInv_internal', PACKAGE = 'RcppCoDA', X, V)
 }
 
+#' Transfer Contrasts for transfering from one coordinate system to another
+#' @param Sigma covariance matrix in specified transformed space
+#' @param V ILR contrast matrix (i.e., transformation matrix of ILR)
+#' @param V1 ILR contrast matrix of basis Sigma is already in
+#' @param V2 ILR contrast matrix of basis Sigma is desired in
+#' @param d1 alr reference element Sigma is already expressed with respec to
+#' @param d2 alr reference element Sigma is to be expressed with respect to
+#' @return matrix
+#' @name convert_coda
+#' @export
+iiContrast <- function(V1, V2) {
+    .Call('_RcppCoDA_iiContrast', PACKAGE = 'RcppCoDA', V1, V2)
+}
+
+#' @rdname convert_coda
+#' @export
+icContrast <- function(V1) {
+    .Call('_RcppCoDA_icContrast', PACKAGE = 'RcppCoDA', V1)
+}
+
+#' @rdname convert_coda
+#' @export
+ciContrast <- function(V2) {
+    .Call('_RcppCoDA_ciContrast', PACKAGE = 'RcppCoDA', V2)
+}
+
+#' @rdname convert_coda
+#' @export
+iaContrast <- function(V1, d2, D) {
+    .Call('_RcppCoDA_iaContrast', PACKAGE = 'RcppCoDA', V1, d2, D)
+}
+
+#' @rdname convert_coda
+#' @export
+aiContrast <- function(d2, V2, D) {
+    .Call('_RcppCoDA_aiContrast', PACKAGE = 'RcppCoDA', d2, V2, D)
+}
+
+#' @rdname convert_coda
+#' @export
+caContrast <- function(d2, D) {
+    .Call('_RcppCoDA_caContrast', PACKAGE = 'RcppCoDA', d2, D)
+}
+
+#' @rdname convert_coda
+#' @export
+acContrast <- function(d1, D) {
+    .Call('_RcppCoDA_acContrast', PACKAGE = 'RcppCoDA', d1, D)
+}
+
+#' @rdname convert_coda
+#' @export
+aaContrast <- function(d1, d2, D) {
+    .Call('_RcppCoDA_aaContrast', PACKAGE = 'RcppCoDA', d1, d2, D)
+}
+
