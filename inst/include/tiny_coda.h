@@ -128,7 +128,7 @@ namespace coda {
   //' @param V contrast matrix (P x D)
   template <typename TX, typename TV>
   Eigen::MatrixXd glrInv(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV>& V){
-    MatrixXd Y = V.transpose()*X;
+    MatrixXd Y.noalias() = V.transpose()*X;
     Y = Y.array().exp().matrix();
     return clo(Y);
   }
@@ -409,59 +409,79 @@ namespace coda {
     return V*Sigma.template selfadjointView<Eigen::Lower>()*V.transpose();
   }
 
-  template <typename TX, typename TV1, typename TV2>
-  Eigen::MatrixXd ilrvar2ilrvar(Eigen::MatrixBase<TX>& X, 
+  //' common internal to transfer covariance functions
+  //' @param Sigma Covariance matrix Px(PN) where N is number of covariance matricies
+  //' @param V contrast matrix to use for transfer
+  template <typename TS, typename TV>
+  Eigen::MatrixXd transferCovarianceIterate(Eigen::MatrixBase<TS>& Sigma, 
+                                              Eigen::MatrixBase<TV>& V){
+    int P1 = V.cols();
+    int P2 = V.rows();
+    int N = Sigma.cols();
+    if ( N % P1 != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
+    if (N == 0 ) throw std::invalid_argument("Sigma must have columns");
+    N = N/P1; // safe after above validation
+    MatrixXd res(P2, N*P2);
+    for (int i=0; i<N; i++){
+      Map<MatrixXd> S(&Sigma(i*P1), P2, P2);
+      res.middleRows(i*P2,(i+1)*P2-1)= transferCovariance(S, V);
+    }
+    return res;
+  }
+  
+  
+  template <typename TS, typename TV1, typename TV2>
+  Eigen::MatrixXd ilrvar2ilrvar(Eigen::MatrixBase<TS>& X, 
                           Eigen::MatrixBase<TV1>& V1, 
                           Eigen::MatrixBase<TV2>& V2){
     MatrixXd V = iiContrast(V1, V2);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX, typename TV1>
   Eigen::MatrixXd ilrvar2clrvar(Eigen::MatrixBase<TX>& X, 
                           Eigen::MatrixBase<TV1>& V1){
     MatrixXd V = icContrast(V1);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX, typename TV2>
   Eigen::MatrixXd clrvar2ilrvar(Eigen::MatrixBase<TX>& X, 
                           Eigen::MatrixBase<TV2>& V2){
     MatrixXd V = ciContrast(V2);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX>
   Eigen::MatrixXd alrvar2clrvar(Eigen::MatrixBase<TX>& X, int d1){
     MatrixXd V = acContrast(d1, X.rows()+1);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX>
   Eigen::MatrixXd clrvar2alrvar(Eigen::MatrixBase<TX>& X, int d2){
     MatrixXd V = caContrast(d2, X.rows());
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX>
   Eigen::MatrixXd alrvar2alrvar(Eigen::MatrixBase<TX>& X, int d1, int d2){
     MatrixXd V = aaContrast(d1, d2, X.rows()+1);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX, typename TV>
   Eigen::MatrixXd ilrvar2alrvar(Eigen::MatrixBase<TX>& X, 
                           Eigen::MatrixBase<TV>& V1, int d2){
     MatrixXd V = iaContrast(V1, d2, X.rows()+1);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
   
   template <typename TX, typename TV>
   Eigen::MatrixXd alrvar2ilrvar(Eigen::MatrixBase<TX>& X,int d1, Eigen::MatrixBase<TV>& V2){
     MatrixXd V = aiContrast(d1, V2, X.rows()+1);
-    return transferCovariance(X, V);
+    return transferCovarianceIterate(X, V);
   }
-  
   
 }
 

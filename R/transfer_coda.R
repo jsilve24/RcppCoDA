@@ -11,7 +11,8 @@
 #' @param b index of dimension to operate on (e.g., index of dimension of parts or coords in X;
 #' default is 1 meaning that compositions/log-ratios are rows) Note, for covariance matricies, 
 #' b is meaningless, first two dimensions must be log-ratio coordinates. 
-#' @param Sigma covariance matrix in specified transformed space
+#' @param Sigma covariance matrix in specified transformed space (can be Px(PN) 
+#'    representing N covariance matricies column-binded together)
 #' @param V ILR contrast matrix (i.e., transformation matrix of ILR)
 #' @param V1 ILR contrast matrix of basis Sigma is already in
 #' @param V2 ILR contrast matrix of basis Sigma is desired in
