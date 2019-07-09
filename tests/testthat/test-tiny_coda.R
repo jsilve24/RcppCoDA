@@ -159,5 +159,19 @@ test_that("array_pre and array_post correctness", {
   )
   expect_equal(y, y.manual)
   expect_equal(array_post(y, 2, 2:4), x)
+  
+  x <- matrix(c(1,2,3,
+                2,1,2,
+                3,2,1), 3, 3)
+  x <- array(c(x,.1*x), dim=c(3,3,2))
+  y <- array_pre(x, c(1,2))
+  y.manual <- rbind(c(1,2,3,.1,.2,.3), 
+                    c(2,1,2, .2,.1,.2), 
+                    c(3,2,1, .3,.2,.1))
+  expect_equal(y, y.manual)
+  expect_equal(array_post(y, 2:1, dim(x)),x) 
+  
+  x <- aperm(x, c(3,2,1))
+  expect_error(array_pre(x, c(2,3)))
 })
 

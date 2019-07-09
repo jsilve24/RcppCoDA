@@ -18,39 +18,69 @@ vec_to_array <- function(x){
 
 #' Functions for setting up transforms and handing weird arrays 
 #' @param X array
-#' @param b part/coord index in array
+#' @param b part/coord index in array (vector of length 2 if using covariance versions)
 #' @return matrix (if array_pre) array (if array_post)
 #' @return s dimensions of array desired (for array_post)
 #' @name array_munge
 array_pre <- function(X, b){
-  #X <- vec_to_array(X)
-  if (b < 1) stop("b must be >=1")
-  if (b > length(dim(X))) stop("b must be <= number of array dimensions")
+  if (any(b < 1)) stop("b must be >=1")
+  if (any(b > length(dim(X)))) stop("b must be <= number of array dimensions")
   s <- dim(X)
-  if (b !=1){
+  
+  if (length(b) == 2) { 
+    if (!(all(b==1:2) | all(b==2:1))) {
+      perm.needed <- TRUE
+      stop("Sorry, currently transforming covariance arrays must be done with b=1:2.", 
+           " i.e., first 2 dimensions must be the relevant log-ratios.")
+    } else {
+      perm.needed <- FALSE
+    }
+  } else if (length(b)==1){
+    if (b != 1) {perm.needed <- TRUE} else {perm.needed <- FALSE}
+  } else {
+    stop("b must be a vector of length 1 or 2")
+  }
+  
+  if (perm.needed){
+    add.factor <- length(b)
     perm <- rep(0, length(s))
-    seen <- FALSE
+    seen <- 0
     for (i in 1:length(s)){
-      if (i==b) { perm[i] <- 1 ; seen <- TRUE}
-      else {
-        if (!seen) {perm[i] <- i+1}
-        else {perm[i] <- i}  
+      if (i %in% b) {
+        seen <- seen+1; perm[i] <- seen
+      } else {
+        if      (seen == 0) { perm[i] <- i+add.factor   }
+        else if (seen == 1) { perm[i] <- i+add.factor-1 }
+        else if (seen == 2) { perm[i] <- i+add.factor-2 }
       }
     }
     X <- aperm(X, perm)
   }
-  X <- matrix(X, s[b], prod(s[-b]))
+  X <- matrix(X, s[b[1]], prod(s[-b[1]]))
   return(X)
 }
 
 #' @rdname array_munge
 array_post <- function(X, b, s){
-  #X <- vec_to_array(X)
-  if (b < 1) stop("d must be >=1")
-  if (b > length(s)) stop("d must be <= number of array dimensions")
-  stmp <- c(s[b], s[-b]) # handles if b==1 or not
+  if (any(b < 1)) stop("b must be >=1")
+  if (any(b > length(dim(X)))) stop("b must be <= number of array dimensions")
+  stmp <- c(s[b], s[-b])
   X <- array(X, dim=stmp)
-  if (b != 1){
+  if (length(b) == 2) { 
+    if (!(all(b==1:2) | all(b==2:1))) {
+      perm.needed <- TRUE
+      stop("Sorry, currently transforming covariance arrays must be done with b=1:2.", 
+           " i.e., first 2 dimensions must be the relevant log-ratios.")
+    } else {
+      perm.needed <- FALSE
+    }
+  } else if (length(b)==1){
+    if (b != 1) {perm.needed <- TRUE} else {perm.needed <- FALSE}
+  } else {
+    stop("b must be a vector of length 1 or 2")
+  }
+  
+  if (perm.needed){
     perm <- 1:length(s)
     perm <- c(b, perm[-b])
     X <- aperm(X, perm)

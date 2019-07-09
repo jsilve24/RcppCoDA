@@ -18,6 +18,14 @@
 \alias{alr2alr}
 \alias{ilr2alr}
 \alias{alr2ilr}
+\alias{ilvar2ilrvar}
+\alias{ilrvar2clrvar}
+\alias{clrvar2ilrvar}
+\alias{alrvar2clrvar}
+\alias{clrvar2alrvar}
+\alias{alrvar2alrvar}
+\alias{ilrvar2alrvar}
+\alias{alrvar2ilrvar}
 \title{Transfer data and covariance matricies from one coordinate system to another}
 \usage{
 iiContrast(V1, V2)
@@ -51,6 +59,22 @@ alr2alr(X, d1, d2, b = 1)
 ilr2alr(X, V1, d2, b = 1)
 
 alr2ilr(X, d1, V2, b = 1)
+
+ilvar2ilrvar(Sigma, V1, V2)
+
+ilrvar2clrvar(Sigma, V1)
+
+clrvar2ilrvar(Sigma, V2)
+
+alrvar2clrvar(Sigma, d1)
+
+clrvar2alrvar(Sigma, d2)
+
+alrvar2alrvar(Sigma, d1, d2)
+
+ilrvar2alrvar(Sigma, V1, d2)
+
+alrvar2ilrvar(Sigma, d1, V2)
 }
 \arguments{
 \item{V1}{ILR contrast matrix of basis Sigma is already in}

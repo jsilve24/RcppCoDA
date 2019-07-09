@@ -13,7 +13,7 @@ array_post(X, b, s)
 \arguments{
 \item{X}{array}
 
-\item{b}{part/coord index in array}
+\item{b}{part/coord index in array (vector of length 2 if using covariance versions)}
 }
 \value{
 matrix (if array_pre) array (if array_post)

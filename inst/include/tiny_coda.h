@@ -128,7 +128,8 @@ namespace coda {
   //' @param V contrast matrix (P x D)
   template <typename TX, typename TV>
   Eigen::MatrixXd glrInv(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV>& V){
-    MatrixXd Y.noalias() = V.transpose()*X;
+    MatrixXd Y;
+    Y.noalias() = V.transpose()*X;
     Y = Y.array().exp().matrix();
     return clo(Y);
   }
@@ -406,7 +407,7 @@ namespace coda {
   template <typename TS, typename TV>
   Eigen::MatrixXd transferCovariance(Eigen::MatrixBase<TS>& Sigma, 
                                      Eigen::MatrixBase<TV>& V){
-    return V*Sigma.template selfadjointView<Eigen::Lower>()*V.transpose();
+    return V*Sigma*V.transpose();
   }
 
   //' common internal to transfer covariance functions
@@ -418,13 +419,14 @@ namespace coda {
     int P1 = V.cols();
     int P2 = V.rows();
     int N = Sigma.cols();
-    if ( N % P1 != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
+    if ( (N % P1) != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
     if (N == 0 ) throw std::invalid_argument("Sigma must have columns");
     N = N/P1; // safe after above validation
     MatrixXd res(P2, N*P2);
+    MatrixXd S;
     for (int i=0; i<N; i++){
-      Map<MatrixXd> S(&Sigma(i*P1), P2, P2);
-      res.middleRows(i*P2,(i+1)*P2-1)= transferCovariance(S, V);
+      S = Sigma.middleCols(i*P1, (i+1)*P1); //(&Sigma(i*P1), P1, P1);
+      res.middleCols(i*P2,(i+1)*P2)= transferCovariance(S, V);
     }
     return res;
   }
