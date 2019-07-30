@@ -7,5 +7,6 @@
 #' @docType package
 #' @author Justin D Silverman
 #' @useDynLib RcppCoDA
+#' @import Rcpp
 #' @name RcppCoDA
 NULL
