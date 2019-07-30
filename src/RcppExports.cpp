@@ -29,15 +29,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // alrContrast
-Eigen::MatrixXd alrContrast(int D, int d, bool inv);
-RcppExport SEXP _RcppCoDA_alrContrast(SEXP DSEXP, SEXP dSEXP, SEXP invSEXP) {
+Eigen::MatrixXd alrContrast(int d, int D, bool inv);
+RcppExport SEXP _RcppCoDA_alrContrast(SEXP dSEXP, SEXP DSEXP, SEXP invSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type D(DSEXP);
     Rcpp::traits::input_parameter< int >::type d(dSEXP);
+    Rcpp::traits::input_parameter< int >::type D(DSEXP);
     Rcpp::traits::input_parameter< bool >::type inv(invSEXP);
-    rcpp_result_gen = Rcpp::wrap(alrContrast(D, d, inv));
+    rcpp_result_gen = Rcpp::wrap(alrContrast(d, D, inv));
     return rcpp_result_gen;
 END_RCPP
 }

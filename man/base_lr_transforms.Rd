@@ -15,7 +15,7 @@
 \alias{ilrInv}
 \title{Log-Ratio Transformation}
 \usage{
-alrContrast(D, d, inv)
+alrContrast(d, D, inv)
 
 clrContrast(D, inv)
 
@@ -38,11 +38,11 @@ ilr(X, V = NULL, b = 1)
 ilrInv(X, V = NULL, b = 1)
 }
 \arguments{
-\item{D}{the number of parts (e.g., number of columns in untransformed data)}
-
 \item{d}{for ALR, which component (integer position) to take as reference
 (default is nrow(x) for alr or nrow(x)+1 for alrInv) for alrInv corresponds 
 to column position in untransformed matrix.}
+
+\item{D}{the number of parts (e.g., number of columns in untransformed data)}
 
 \item{inv}{for ALR and CLR, transformation matrix is different forward and inverse}
 
