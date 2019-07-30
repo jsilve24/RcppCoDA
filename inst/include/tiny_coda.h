@@ -410,7 +410,7 @@ namespace coda {
     return V*Sigma*V.transpose();
   }
 
-  //' common internal to transfer covariance functions
+  //' common internal to transfer covariance matricies
   //' @param Sigma Covariance matrix Px(PN) where N is number of covariance matricies
   //' @param V contrast matrix to use for transfer
   template <typename TS, typename TV>

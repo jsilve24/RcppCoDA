@@ -143,6 +143,7 @@ alr2ilr <- function(X, d1, V2, b=1){
 
 # Covariance Functions ----------------------------------------------------
 
+
 #' @rdname convert_coda
 #' @export
 ilrvar2ilrvar <- function(Sigma, V1, V2){
@@ -156,6 +157,12 @@ ilrvar2ilrvar <- function(Sigma, V1, V2){
   s[b] <- nrow(V2)
   Sigma <- array_post(Sigma, b, s)
   return(Sigma)
+}
+
+#' @rdname convert_coda
+#' @export
+glrvar2glrvar <- function(Sigma, V1, V2){
+  ilrvar2ilrvar(Sigma, V1, V2)
 }
 
 #' @rdname convert_coda
