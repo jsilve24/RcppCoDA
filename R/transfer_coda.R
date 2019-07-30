@@ -19,7 +19,6 @@
 #' @param d2 alr reference element Sigma is to be expressed with respect to
 #' @return matrix
 #' @name convert_coda
-#' @export
 #' @examples
 #' # For Data
 #' X <- matrix(abs(rnorm(10)), 5, 2)

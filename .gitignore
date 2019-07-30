@@ -2,3 +2,5 @@
 /.Rhistory
 /Read-and-delete-me
 .Rproj.user
+inst/doc
+/src/RcppCoDA.so
