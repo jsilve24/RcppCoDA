@@ -10,6 +10,7 @@ center_internal <- function(X) {
 }
 
 #' @rdname base_lr_transforms
+#' @export
 alrContrast <- function(d, D, inv) {
     .Call('_RcppCoDA_alrContrast', PACKAGE = 'RcppCoDA', d, D, inv)
 }
