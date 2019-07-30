@@ -94,6 +94,7 @@ array_post <- function(X, b, s){
 #' @param b index of dimension to operate on 
 #'   (e.g., index of dimension of parts or coords in X;
 #'   default is 1 meaning that compositions/log-ratios are rows)
+#' @export
 clo <- function(X, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -109,6 +110,7 @@ clo <- function(X, b=1){
 #' @param b index of dimension to operate on 
 #'   (e.g., index of dimension of parts or coords in X;
 #'   default is 1 meaning that compositions/log-ratios are rows)
+#' @export
 center <- function(X, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -161,6 +163,7 @@ center <- function(X, b=1){
 NULL
 
 #' @rdname base_lr_transforms
+#' @export
 glr <- function(X, V, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -173,6 +176,7 @@ glr <- function(X, V, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 glrInv <- function(X, V, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -185,6 +189,7 @@ glrInv <- function(X, V, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 alr <- function(X, d=NULL, b=1){
   X <- vec_to_array(X)
   if (is.null(d)) d <- nrow(X)
@@ -198,6 +203,7 @@ alr <- function(X, d=NULL, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 alrInv <- function(X, d=NULL, b=1){
   X <- vec_to_array(X)
   if (is.null(d)) d <- nrow(X)+1
@@ -211,6 +217,7 @@ alrInv <- function(X, d=NULL, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 clr <- function(X, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -221,6 +228,7 @@ clr <- function(X, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 clrInv <- function(X, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -231,6 +239,7 @@ clrInv <- function(X, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 ilr <- function(X, V=NULL, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
@@ -244,6 +253,7 @@ ilr <- function(X, V=NULL, b=1){
 }
 
 #' @rdname base_lr_transforms
+#' @export
 ilrInv <- function(X, V=NULL, b=1){
   X <- vec_to_array(X)
   s <- dim(X)
