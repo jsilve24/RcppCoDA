@@ -18,7 +18,7 @@
 \alias{alr2alr}
 \alias{ilr2alr}
 \alias{alr2ilr}
-\alias{ilvar2ilrvar}
+\alias{ilrvar2ilrvar}
 \alias{ilrvar2clrvar}
 \alias{clrvar2ilrvar}
 \alias{alrvar2clrvar}
@@ -60,7 +60,7 @@ ilr2alr(X, V1, d2, b = 1)
 
 alr2ilr(X, d1, V2, b = 1)
 
-ilvar2ilrvar(Sigma, V1, V2)
+ilrvar2ilrvar(Sigma, V1, V2)
 
 ilrvar2clrvar(Sigma, V1)
 

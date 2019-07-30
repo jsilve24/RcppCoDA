@@ -145,7 +145,7 @@ alr2ilr <- function(X, d1, V2, b=1){
 
 #' @rdname convert_coda
 #' @export
-ilvar2ilrvar <- function(Sigma, V1, V2){
+ilrvar2ilrvar <- function(Sigma, V1, V2){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
