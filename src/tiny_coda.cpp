@@ -18,6 +18,7 @@ Eigen::MatrixXd center_internal(Eigen::Map<Eigen::MatrixXd> X){
 }
 
 //' @rdname base_lr_transforms
+//' @export
 // [[Rcpp::export]]
 Eigen::MatrixXd alrContrast(int d, int D, bool inv){
   return coda::alrContrast(d, D, inv);
