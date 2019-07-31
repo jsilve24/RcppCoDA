@@ -34,3 +34,4 @@ test_that("transfers of covariance are correct", {
   Sigma.clr <- ilrvar2clrvar(Sigma, V)
   expect_equal(.0001*foo, Sigma.clr[,,2])
 })
+

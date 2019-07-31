@@ -150,8 +150,8 @@ ilrvar2ilrvar <- function(Sigma, V1, V2){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
-  if (nrow(V1) != s[b]) stop("V1 has wrong dimensions")
-  if (nrow(V2) != s[b]) stop("V2 has wrong dimensions")
+  if (any(nrow(V1) != s[b])) stop("V1 has wrong dimensions")
+  if (ncol(V1) != ncol(V2)) stop("V2 has wrong dimensions")
   Sigma <- array_pre(Sigma, b)
   Sigma <- ilrvar2ilrvar_internal(Sigma, V1, V2)
   s[b] <- nrow(V2)
@@ -171,7 +171,7 @@ ilrvar2clrvar <- function(Sigma, V1){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
-  if (all(nrow(V1) != s[b])) stop("V1 has wrong dimensions")
+  if (any(nrow(V1) != s[b])) stop("V1 has wrong dimensions")
   Sigma <- array_pre(Sigma, b)
   Sigma <- ilrvar2clrvar_internal(Sigma, V1)
   s[b] <- ncol(V1)
@@ -185,7 +185,7 @@ clrvar2ilrvar <- function(Sigma, V2){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
-  if (all(ncol(V2) != s[b])) stop("V1 has wrong dimensions")
+  if (any(ncol(V2) != s[b])) stop("V1 has wrong dimensions")
   Sigma <- array_pre(Sigma, b)
   Sigma <- clrvar2ilrvar_internal(Sigma, V2)
   s[b] <- nrow(V2)
@@ -241,7 +241,7 @@ ilrvar2alrvar <- function(Sigma, V1, d2){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
-  if (all(nrow(V1) != s[b])) stop("V1 has wrong dimensions")
+  if (any(nrow(V1) != s[b])) stop("V1 has wrong dimensions")
   Sigma <- array_pre(Sigma, b)
   Sigma <- ilrvar2alrvar_internal(Sigma, V1, d2)
   s[b] <- nrow(Sigma)
@@ -255,7 +255,7 @@ alrvar2ilrvar <- function(Sigma, d1, V2){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
-  if (all(nrow(V2) != s[b])) stop("V1 has wrong dimensions")
+  if (any(nrow(V2) != s[b])) stop("V1 has wrong dimensions")
   Sigma <- array_pre(Sigma, b)
   Sigma <- alrvar2ilrvar_internal(Sigma, d1, V2)
   s[b] <- nrow(Sigma)
