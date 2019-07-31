@@ -174,3 +174,33 @@ clrvar2phi_internal <- function(Sigma) {
     .Call('_RcppCoDA_clrvar2phi_internal', PACKAGE = 'RcppCoDA', Sigma)
 }
 
+#' Functions for implementing / calculating IQLR 
+#' 
+#' var2iqlrContrast calculates contrast matrix in iqlr based on part-wise variance 
+#' and a specification for the lower and upper quantiles to use. 
+#' 
+#' clrvar2iqlrvar transforms covariance matrices into the iqlr. Note a different 
+#' iqlr is calculated for each covariance matrix
+#' 
+#' These are advanced features and should not be used without prior knowledge of the
+#' IQLR transform. 
+#' 
+#' @param S P-vector of "variances" for IQLR (e.g., diagonal of CLR covariance matrix)
+#' @param Sigma (PN)xP covariance matrix in CLR
+#' @param qLow lower quantile (between 0 and 1)
+#' @param qHigh upper quantile (between 0 and 1; must be greater than qLow)
+#' @return PxP contrast matrix (var2iqlrContrast) or 
+#'    (PN)xP covariance matricies (clrvar2iqlrvar)
+#' @name iqlr
+#' @export
+#' @references Jia R Wu, Jean M Macklaim, Briana L Genge, Gregory B Gloor. 
+#'   Finding the centre: corrections for asymmetry in high-throughput sequencing datasets. 
+#'   (2017) arXiv preprint arXiv:1704.01841
+var2iqlrContrast <- function(S, qLow = 0.25, qHigh = 0.25) {
+    .Call('_RcppCoDA_var2iqlrContrast', PACKAGE = 'RcppCoDA', S, qLow, qHigh)
+}
+
+clrvar2iqlrvar_internal <- function(Sigma, qLow, qHigh) {
+    .Call('_RcppCoDA_clrvar2iqlrvar_internal', PACKAGE = 'RcppCoDA', Sigma, qLow, qHigh)
+}
+

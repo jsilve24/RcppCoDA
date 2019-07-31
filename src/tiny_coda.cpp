@@ -245,3 +245,36 @@ Eigen::MatrixXd alrvar2ilrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma,
 Eigen::MatrixXd clrvar2phi_internal(Eigen::Map<Eigen::MatrixXd>& Sigma){
   return coda::clrvar2phi(Sigma);
 }
+
+//' Functions for implementing / calculating IQLR 
+//' 
+//' var2iqlrContrast calculates contrast matrix in iqlr based on part-wise variance 
+//' and a specification for the lower and upper quantiles to use. 
+//' 
+//' clrvar2iqlrvar transforms covariance matrices into the iqlr. Note a different 
+//' iqlr is calculated for each covariance matrix
+//' 
+//' These are advanced features and should not be used without prior knowledge of the
+//' IQLR transform. 
+//' 
+//' @param S P-vector of "variances" for IQLR (e.g., diagonal of CLR covariance matrix)
+//' @param Sigma (PN)xP covariance matrix in CLR
+//' @param qLow lower quantile (between 0 and 1)
+//' @param qHigh upper quantile (between 0 and 1; must be greater than qLow)
+//' @return PxP contrast matrix (var2iqlrContrast) or 
+//'    (PN)xP covariance matricies (clrvar2iqlrvar)
+//' @name iqlr
+//' @export
+//' @references Jia R Wu, Jean M Macklaim, Briana L Genge, Gregory B Gloor. 
+//'   Finding the centre: corrections for asymmetry in high-throughput sequencing datasets. 
+//'   (2017) arXiv preprint arXiv:1704.01841
+// [[Rcpp::export]]
+Eigen::MatrixXd var2iqlrContrast(Eigen::Map<Eigen::VectorXd>& S, double qLow=0.25, double qHigh=0.25){
+  return coda::var2iqlrContrast(S, qLow, qHigh);
+}
+
+// [[Rcpp::export]]
+Eigen::MatrixXd clrvar2iqlrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, double qLow, double qHigh){
+  return coda::clrvar2iqlrvar(Sigma, qLow, qHigh);
+}
+

@@ -285,3 +285,16 @@ clrvar2phi <- function(Sigma){
   Sigma <- array_post(Sigma, b, s)
   return(Sigma)
 }
+
+
+#' @export
+#' @rdname iqlr
+clrvar2iqlrvar <- function(Sigma, qLow=.25, qHigh=.75){
+  b <- 1:2
+  Sigma <- vec_to_array(Sigma)
+  s <- dim(Sigma)
+  Sigma <- array_pre(Sigma, b)
+  Sigma <- clrvar2iqlrvar_internal(Sigma, qLow, qHigh)
+  Sigma <- array_post(Sigma, b, s)
+  return(Sigma)
+}
