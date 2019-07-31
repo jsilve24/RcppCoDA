@@ -21,17 +21,23 @@ test_that("transfers of data correct", {
   expect_equal(X.alr, ilr2alr(X.ilr, V, 5))
 })
 
+X <- matrix(abs(rnorm(10)), 5, 2)
+X <- clo(X)
+X <- ilr(X)
+V <- ilrContrast(nrow(X)+1)
+Sigma <- cov(t(X))
+
 test_that("transfers of covariance are correct", {
-  X <- matrix(abs(rnorm(10)), 5, 2)
-  X <- clo(X)
-  X <- ilr(X)
-  V <- ilrContrast(nrow(X)+1)
-  Sigma <- cov(t(X))
-  
   foo <- ilrvar2clrvar_internal(Sigma, V)
   expect_equal(foo, t(V)%*%Sigma%*%V)
   Sigma <- array(c(Sigma, .0001*Sigma), c(4,4,2))
   Sigma.clr <- ilrvar2clrvar(Sigma, V)
   expect_equal(.0001*foo, Sigma.clr[,,2])
+})
+
+test_that("phi statistics correct", {
+  Sigma <- array(c(Sigma, .0001*Sigma), c(4,4,2))
+  foo <- clrvar2phi(Sigma)
+  expect_equal(foo[4,3,2], Sigma[4,4,2] + Sigma[3,3,2] - 2*Sigma[4,3,2])
 })
 

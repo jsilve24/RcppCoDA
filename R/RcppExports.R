@@ -170,3 +170,7 @@ alrvar2ilrvar_internal <- function(Sigma, d1, V2) {
     .Call('_RcppCoDA_alrvar2ilrvar_internal', PACKAGE = 'RcppCoDA', Sigma, d1, V2)
 }
 
+clrvar2phi_internal <- function(Sigma) {
+    .Call('_RcppCoDA_clrvar2phi_internal', PACKAGE = 'RcppCoDA', Sigma)
+}
+

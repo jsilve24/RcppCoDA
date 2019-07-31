@@ -240,4 +240,8 @@ Eigen::MatrixXd alrvar2ilrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma,
                         int d1, Eigen::Map<Eigen::MatrixXd>& V2){
   return coda::alrvar2ilrvar(Sigma, d1, V2);
 }
- 
+
+// [[Rcpp::export]]
+Eigen::MatrixXd clrvar2phi_internal(Eigen::Map<Eigen::MatrixXd>& Sigma){
+  return coda::clrvar2phi(Sigma);
+}

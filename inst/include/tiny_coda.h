@@ -508,8 +508,40 @@ namespace coda {
     return O;
   }
   
+  //' Calculate Phi statistics (propotionality) from CLR covariance (single matrix)
+  //' @param Sigma Covariance matrix PxP in CLR space
+  template <typename TS>
+  Eigen::MatrixXd clrvar2phi_single(Eigen::MatrixBase<TS>& Sigma){
+    int P = Sigma.rows();
+    MatrixXd res(P,P);
+    if (Sigma.cols() != P) throw std::invalid_argument("Sigma must be PxP see documentation");
+    for (int i=0; i<P; i++){
+      for (int j=0; j<P; j++){
+        res(i,j) = Sigma(i,i) + Sigma(j,j) - 2*Sigma(i,j);
+      }
+    }
+    return res;
+  }
+  
+  //' Calculate Phi statistics (proportionality) from CLR Covariances
+  //' @param Sigma Covariance matrix Px(PN) where N is number of 
+  //'   covariance matricies in CLR space
+  template <typename TS>
+  Eigen::MatrixXd clrvar2phi(Eigen::MatrixBase<TS>& Sigma){
+      int P1 = Sigma.rows();
+      int N = Sigma.cols();
+      if ( (N % P1) != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
+      if (N == 0 ) throw std::invalid_argument("Sigma must have columns");
+      N = N/P1; // safe after above validation
+      MatrixXd S;
+      MatrixXd res(P1, N*P1);
+      for (int n=0; n<N; n++){
+        S = Sigma.middleCols(n*P1, P1);
+        res.middleCols(n*P1,P1) = clrvar2phi_single(S);
+      }
+      return res;
+  } 
+  
 }
-
-
 
 #endif
