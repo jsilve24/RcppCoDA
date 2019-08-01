@@ -1,4 +1,4 @@
-#include "tiny_coda.h"
+#include "CoDA.h"
 
 using namespace Rcpp;
 

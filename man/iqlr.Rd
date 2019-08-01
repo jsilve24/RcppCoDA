@@ -6,9 +6,9 @@
 \alias{clrvar2iqlrvar}
 \title{Functions for implementing / calculating IQLR}
 \usage{
-var2iqlrContrast(S, qLow, qHigh)
+var2iqlrContrast(S, qLow = 0.25, qHigh = 0.25)
 
-clrvar2iqlrvar(Sigma)
+clrvar2iqlrvar(Sigma, qLow = 0.25, qHigh = 0.75)
 }
 \arguments{
 \item{S}{P-vector of "variances" for IQLR (e.g., diagonal of CLR covariance matrix)}
