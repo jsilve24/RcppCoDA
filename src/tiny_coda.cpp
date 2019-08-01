@@ -278,3 +278,27 @@ Eigen::MatrixXd clrvar2iqlrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, doub
   return coda::clrvar2iqlrvar(Sigma, qLow, qHigh);
 }
 
+
+// //' Transfer Functions (Internal Versions)
+// //' 
+// //' These functions take in Data or Covariance Matricies and change their representation
+// //' 
+// // [[Rcpp::export]]
+// Eigen::MatrixXd transferData_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V){
+//   return coda::transferData(X, V);
+// }
+// 
+// // [[Rcpp::export]]
+// Eigen::MatrixXd transferCovarince_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V){
+//   return coda::transferCovariance(Sigma, V);
+// }
+// 
+// // [[Rcpp::export]]
+// Eigen::MatrixXd transferCovarinceIterate_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, Eigen::Map<Eigen::MatrixXd>& V){
+//   return coda::transferCovarianceIterate(Sigma, V);
+// }
+// 
+// // [[Rcpp::export]]
+// Eigen::MatrixXd transferData_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V){
+//   return coda::transferData(X, V);
+// }

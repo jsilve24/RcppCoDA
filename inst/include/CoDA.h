@@ -252,7 +252,6 @@ namespace coda {
   //' @return V2*V1.transpose()
   template <typename TV1, typename TV2>
   Eigen::MatrixXd transferContrast(Eigen::SparseMatrixBase<TV1>& V1, 
-                                   
                                    Eigen::MatrixBase<TV2>& V2){
     return V2*V1.transpose();
   }
@@ -262,7 +261,6 @@ namespace coda {
   //' @return V2*V1.transpose()
   template <typename TV1, typename TV2>
   Eigen::MatrixXd transferContrast(Eigen::SparseMatrixBase<TV1>& V1, 
-                                   
                                    Eigen::SparseMatrixBase<TV2>& V2){
     return V2*V1.transpose();
   }
@@ -608,6 +606,190 @@ namespace coda {
       res.middleCols(n*P1,P1) = transferCovariance(S, V);
     }
     return res;
+  }
+  
+  
+  // BLOCK OPERATIONS ------------
+  
+  //' Generalized LR Transform
+  //' @param X data (parts x samples aka D x N; D = D1+D2)
+  //' @param V1 contrast matrix (P1 x D1)
+  //' @param V2 contrast matrix (P2 x D2)
+  //' @details assumes that if only V1 is given then its the first block to be transformed
+  template <typename TX, typename TV1>
+  Eigen::MatrixXd glrBlock(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV1>& V1){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int D = X.rows();
+    int N = X.cols();
+    if (X.rows() < D1) throw std::invalid_argument("X.rows() >= V1.cols()");
+    MatrixXd O(D-D1+P1, N);
+    MatrixXd Y = X.topRows(D1).array().log().matrix();
+    O.topRows(P1).noalias() = V1*Y;
+    O.bottomRows(D-D1) = X.bottomRows(D-D1);
+    return O;
+  }
+  
+  template <typename TX, typename TV1, typename TV2>
+  Eigen::MatrixXd glrBlock(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV1>& V1, 
+                           Eigen::MatrixBase<TV2>& V2){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int P2 = V2.rows();
+    int D2 = V2.cols();
+    int N = X.cols();
+    if (X.rows() != D1+D2) throw std::invalid_argument("X.rows() must equal V1.cols() + V2.cols()");
+    MatrixXd O(P1+P2, N);
+    MatrixXd Y = X.array().log().matrix();
+    O.topRows(P1).noalias() = V1*Y.bottomRows(D1);
+    O.bottomRows(P2) = V2*Y.bottomRows(D2);
+    return O;
+  }
+  
+  template <typename TX, typename TV1>
+  Eigen::MatrixXd glrInvBlock(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV1>& V1){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int D = X.rows();
+    int N = X.cols();
+    if (X.rows() < P1) throw std::invalid_argument("X.rows() >= V1.rows()");
+    MatrixXd Y;
+    Y.noalias() = V1.transpose()*X.topRows(P1);
+    Y = Y.array().exp().matrix();
+    MatrixXd O(D-P1+D1, N);
+    O.topRows(D1) = clo(Y);
+    O.bottomRows(D-P1) = X.bottomRows(D-P1);
+    return O;
+  }
+  
+  template <typename TX, typename TV1, typename TV2>
+  Eigen::MatrixXd glrInvBlock(Eigen::MatrixBase<TX>& X, Eigen::MatrixBase<TV1>& V1, 
+                              Eigen::MatrixBase<TV2>& V2){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int P2 = V2.rows();
+    int D2 = V2.cols();
+    int N = X.cols();
+    if (X.rows() != P1 + P2) throw std::invalid_argument("X.rows() >= V1.rows() + V2.rows()");
+    MatrixXd Y(D1+D2, N);
+    Y.topRows(D1).noalias() = V1.transpose()*X.topRows(P1);
+    Y.bottomRows(D2).noalias() = V2.transpose()*X.bottomRows(P2);
+    Y = Y.array().exp().matrix();
+    MatrixXd O(D1+D2, N);
+    MatrixXd Ytmp = Y.topRows(D1);
+    O.topRows(D1) = clo(Ytmp);
+    Ytmp = Y.bottomRows(D2);
+    O.bottomRows(D2) = clo(Ytmp);
+    return O;
+  }
+  
+  template <typename TX, typename TV1>
+  Eigen::MatrixXd transferDataBlock(Eigen::MatrixBase<TX>& X, 
+                               Eigen::MatrixBase<TV1>& V1){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int D = X.rows();
+    int N = X.cols();
+    if (X.rows() < D1) throw std::invalid_argument("X.rows() >= V1.cols()");
+    MatrixXd O(D-D1+P1, N);
+    O.topRows(P1) = V1*X.topRows(D1);
+    O.bottomRows(D-D1) = X.bottomRows(D-D1);  
+    return O;
+  }
+  
+  template <typename TX, typename TV1, typename TV2>
+  Eigen::MatrixXd transferDataBlock(Eigen::MatrixBase<TX>& X,
+                                    Eigen::MatrixBase<TV1>& V1,
+                                    Eigen::MatrixBase<TV2>& V2){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int P2 = V2.rows();
+    int D2 = V2.cols();
+    int N = X.cols();
+    if (X.rows() != D1 + D2) throw std::invalid_argument("X.rows() >= V1.cols() + V2.cols()");
+    MatrixXd O(P2+P1, N);
+    O.topRows(D1) = V1*X.topRows(P1);
+    O.bottomRows(D2) = V2*X.bottomRows(P2);
+    return O;
+  }
+  
+  template <typename TS, typename TV1>
+  Eigen::MatrixXd transferCovarianceBlock(Eigen::MatrixBase<TS>& Sigma, 
+                                     Eigen::MatrixBase<TV1>& V1){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int D = Sigma.rows();
+    if (D != Sigma.cols()) throw std::invalid_argument("Sigma must be a square matrix");
+    if (D < D1) throw std::invalid_argument("Sigma dimension must be larger than V1.cols()");
+    MatrixXd O(D-D1+P1, D-D1+P1);
+    O.topLeftCorner(P1, P1).noalias() =  V1*Sigma.topLeftCorner(D1,D1)*V1.transpose();
+    O.topRightCorner(P1, D-D1).noalias() = V1*Sigma.topRightCorner(D1, D-D1);
+    O.bottomLeftCorner(D-D1, P1) = O.topRightCorner(P1, D-D1).transpose();
+    O.bottomRightCorner(D-D1, D-D1) = Sigma.bottomRightCorner(D-D1, D-D1);
+    return O;
+  }
+  
+  template <typename TS, typename TV1, typename TV2>
+  Eigen::MatrixXd transferCovarianceBlock(Eigen::MatrixBase<TS>& Sigma, 
+                                          Eigen::MatrixBase<TV1>& V1, 
+                                          Eigen::MatrixBase<TV2>& V2){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int P2=V2.rows();
+    int D2=V2.cols();
+    int D = Sigma.rows();
+    if (D != Sigma.cols()) throw std::invalid_argument("Sigma must be a square matrix");
+    if (D != D1+D2) throw std::invalid_argument("Sigma dimension must = V1.cols() + V2.cols()");
+    MatrixXd O(P1+P2, P1+P2);
+    O.topLeftCorner(P1, P1).noalias() =  V1*Sigma.topLeftCorner(D1,D1)*V1.transpose();
+    O.topRightCorner(P1, P2).noalias() = V1*Sigma.topRightCorner(D1, D2)*V2.transpose();
+    O.bottomLeftCorner(P2, P1) = O.topRightCorner(P1, P2).transpose();
+    O.bottomRightCorner(P2, P2).noalias() = V2*Sigma.bottomRightCorner(D2, D2)*V2.transpose();
+    return O;
+  }
+  
+  template <typename TS, typename TV1>
+  Eigen::MatrixXd transferCovarianceIterateBlock(Eigen::MatrixBase<TS>& Sigma, 
+                                            Eigen::MatrixBase<TV1>& V1){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int D = Sigma.rows();
+    int D2 = D-D1;
+    int N = Sigma.cols();
+    if (D < D1) throw std::invalid_argument("Sigma dimension must be larger than V1.cols()");
+    if ( (N % D ) != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
+    if (N == 0 ) throw std::invalid_argument("Sigma must have columns");
+    N = N/D; // safe after above validation
+    MatrixXd O(P1+D2, N*(P1+D2));
+    MatrixXd S;
+    for (int i=0; i<N; i++){
+      S = Sigma.middleCols(i*D, D); 
+      O.middleCols(i*(P1+D2), P1+D2)= transferCovarianceBlock(S, V1);
+    }
+    return O;
+  }
+  
+  template <typename TS, typename TV1, typename TV2>
+  Eigen::MatrixXd transferCovarianceIterateBlock(Eigen::MatrixBase<TS>& Sigma, 
+                                                 Eigen::MatrixBase<TV1>& V1, 
+                                                 Eigen::MatrixBase<TV2>& V2){
+    int P1=V1.rows();
+    int D1=V1.cols();
+    int P2 = V2.rows();
+    int D2 = V2.cols();
+    int D = Sigma.rows();
+    int N = Sigma.cols();
+    if (D != D1+D2) throw std::invalid_argument("Sigma dimension must = V1.cols() + V2.cols()");
+    if ( (N % D ) != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
+    if (N == 0 ) throw std::invalid_argument("Sigma must have columns");
+    N = N/D; // safe after above validation
+    MatrixXd O(P1+P2, N*(P1+P2));
+    MatrixXd S;
+    for (int i=0; i<N; i++){
+      S = Sigma.middleCols(i*D, D); 
+      O.middleCols(i*(P1+P2), P1+P2)= transferCovarianceBlock(S, V1, V2);
+    }
+    return O;
   }
   
 }
