@@ -78,8 +78,8 @@ namespace coda{
     int N = X.cols();
     if (X.rows() != D1 + D2) throw std::invalid_argument("X.rows() must equal V1.cols() + V2.cols()");
     MatrixXd O(P2+P1, N);
-    O.topRows(D1) = V1*X.topRows(P1);
-    O.bottomRows(D2) = V2*X.bottomRows(P2);
+    O.topRows(P1) = V1*X.topRows(D1);
+    O.bottomRows(P2) = V2*X.bottomRows(D2);
     return O;
   }
   

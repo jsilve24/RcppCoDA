@@ -9,6 +9,14 @@ center_internal <- function(X) {
     .Call('_RcppCoDA_center_internal', PACKAGE = 'RcppCoDA', X)
 }
 
+linForm_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_linForm_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
+quadForm_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_quadForm_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
 #' @rdname base_lr_transforms
 #' @export
 alrContrast <- function(d, D, inv) {

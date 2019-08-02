@@ -12,15 +12,4 @@
 #include <CoDA/proportionality.h>
 #include <CoDA/iqlr.h>
 
-
-
-
-namespace coda {
-  
-  
-  
-
-  
-}
-
 #endif
