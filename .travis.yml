@@ -6,6 +6,11 @@ cache: packages
 os: 
   - osx
   - linux
-  
- after_success:
+
+branches:
+  only:
+    - master
+    - develop
+
+after_success:
     - Rscript -e 'covr::codecov()'
