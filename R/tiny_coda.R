@@ -22,6 +22,7 @@ vec_to_array <- function(x){
 #' @return matrix (if array_pre) array (if array_post)
 #' @return s dimensions of array desired (for array_post)
 #' @name array_munge
+#' @export
 array_pre <- function(X, b){
   if (any(b < 1)) stop("b must be >=1")
   if (any(b > length(dim(X)))) stop("b must be <= number of array dimensions")
@@ -61,6 +62,7 @@ array_pre <- function(X, b){
 }
 
 #' @rdname array_munge
+#' @export
 array_post <- function(X, b, s){
   if (any(b < 1)) stop("b must be >=1")
   if (any(b > length(dim(X)))) stop("b must be <= number of array dimensions")
