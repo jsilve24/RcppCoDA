@@ -16,7 +16,6 @@
 #'   
 #' If V2 is not given then assumes that Y2 = X2. 
 #' In that case determines the size of X2 and Y2 based on on size of V1. 
-#' @export
 #' @examples 
 #' # CUSTOM - Be careful if your custom matrix is not
 #' # orthogonal the inverse transform may not be given by just the transpose!
