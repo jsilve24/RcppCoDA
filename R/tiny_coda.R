@@ -154,39 +154,8 @@ center <- function(X, b=1){
 #' # CLR
 #' x.clr <- clr(x)
 #' x <- clrInv(x.clr)
-#'
-#' # CUSTOM - Be careful if your custom matrix is not
-#' # orthogonal the inverse transform may not be given by just the transpose!
-#' # For example, this is the case for the ALR
-#' V <- matrix(c(1, 1, -1), 1, 3)
-#' x.custom <- glr(x, V)
 NULL
 
-#' @rdname base_lr_transforms
-#' @export
-glr <- function(X, V, b=1){
-  X <- vec_to_array(X)
-  s <- dim(X)
-  if (ncol(V) != s[b]) stop("V has wrong dimensions")
-  X <- array_pre(X, b)
-  X <- glr_internal(X, V)
-  s[b] <- nrow(V)
-  X <- array_post(X, b, s)
-  return(X)
-}
-
-#' @rdname base_lr_transforms
-#' @export
-glrInv <- function(X, V, b=1){
-  X <- vec_to_array(X)
-  s <- dim(X)
-  if (nrow(V) != s[b]) stop("V has wrong dimensions")
-  X <- array_pre(X, b)
-  X <- glrInv_internal(X, V)
-  s[b] <- ncol(V)
-  X <- array_post(X, b, s)
-  return(X)
-}
 
 #' @rdname base_lr_transforms
 #' @export

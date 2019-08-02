@@ -51,9 +51,9 @@ test_that("glr and glrInv are inverses and correct", {
   V <- ilrContrast(5)
   expect_error(glr(X, V))
   V <- ilrContrast(3)
-  Y <- glr(X, V, 2)
+  Y <- glr(X, V, b=2)
   expect_equal(Y[,,2], t(glr(t(X[,,2]), V)))
-  expect_equal(X, glrInv(Y, V, 2))
+  expect_equal(X, glrInv(Y, V, b=2))
 })
 
 test_that("alr and alrInv are inverses and correct", {
