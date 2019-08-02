@@ -7,6 +7,8 @@ using Eigen::MatrixXd;
 using Eigen::VectorXd;
 using Eigen::Map;
 
+// ----- CODA MATH
+
 // [[Rcpp::export]]
 Eigen::MatrixXd clo_internal(Eigen::Map<Eigen::MatrixXd> X){
   return coda::clo(X);
@@ -16,6 +18,60 @@ Eigen::MatrixXd clo_internal(Eigen::Map<Eigen::MatrixXd> X){
 Eigen::MatrixXd center_internal(Eigen::Map<Eigen::MatrixXd> X){
   return coda::center(X);
 }
+
+
+// [[Rcpp::export]]
+Eigen::MatrixXd linForm_internal(Eigen::Map<Eigen::MatrixXd> X,
+                        Eigen::Map<Eigen::MatrixXd> V1,
+                        Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd> > V2 = R_NilValue){
+  if (V2.isNotNull()){
+   Eigen::Map<Eigen::MatrixXd> V2tmp = Rcpp::as<Eigen::Map<Eigen::MatrixXd> >(V2);
+   return coda::linForm(X, V1, V2tmp);
+  }
+  return coda::linForm(X, V1);
+}
+
+
+// [[Rcpp::export]]
+Eigen::MatrixXd quadForm_internal(Eigen::Map<Eigen::MatrixXd> X,
+                         Eigen::Map<Eigen::MatrixXd> V1,
+                         Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd> > V2 = R_NilValue){
+  if (V2.isNotNull()){
+    Eigen::Map<Eigen::MatrixXd> V2tmp = Rcpp::as<Eigen::Map<Eigen::MatrixXd> >(V2);
+    return coda::quadForm(X, V1, V2tmp);
+  }
+  return coda::quadForm(X, V1);
+}
+
+
+// ------- GLR TRANSFORMS
+
+
+// [[Rcpp::export]]
+Eigen::MatrixXd glr_internal(Eigen::Map<Eigen::MatrixXd>& X, 
+                             Eigen::Map<Eigen::MatrixXd>& V1, 
+                             Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd> > V2 = R_NilValue){
+  if (V2.isNotNull()){
+    Eigen::Map<Eigen::MatrixXd> V2tmp = Rcpp::as<Eigen::Map<Eigen::MatrixXd> >(V2);
+    return coda::glr(X, V1, V2tmp);
+  }
+  return coda::glr(X, V1);
+}
+
+// [[Rcpp::export]]
+Eigen::MatrixXd glrInv_internal(Eigen::Map<Eigen::MatrixXd>& X, 
+                             Eigen::Map<Eigen::MatrixXd>& V1, 
+                             Rcpp::Nullable<Eigen::Map<Eigen::MatrixXd> > V2 = R_NilValue){
+  if (V2.isNotNull()){
+    Eigen::Map<Eigen::MatrixXd> V2tmp = Rcpp::as<Eigen::Map<Eigen::MatrixXd> >(V2);
+    return coda::glrInv(X, V1, V2tmp);
+  }
+  return coda::glrInv(X, V1);
+}
+
+
+
+// ------- CODA TRANSFORMS
 
 //' @rdname base_lr_transforms
 //' @export
@@ -36,16 +92,6 @@ Eigen::MatrixXd clrContrast(int D, bool inv){
 // [[Rcpp::export]]
 Eigen::MatrixXd ilrContrast(int D){
   return coda::ilrContrast(D);
-}
-
-// [[Rcpp::export]]
-Eigen::MatrixXd glr_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V){
-  return coda::glr(X, V);
-}
-
-// [[Rcpp::export]]
-Eigen::MatrixXd glrInv_internal(Eigen::Map<Eigen::MatrixXd>& X, Eigen::Map<Eigen::MatrixXd>& V){
-  return coda::glrInv(X,V);
 }
 
 // [[Rcpp::export]]

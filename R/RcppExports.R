@@ -9,6 +9,22 @@ center_internal <- function(X) {
     .Call('_RcppCoDA_center_internal', PACKAGE = 'RcppCoDA', X)
 }
 
+linForm_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_linForm_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
+quadForm_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_quadForm_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
+glr_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_glr_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
+glrInv_internal <- function(X, V1, V2 = NULL) {
+    .Call('_RcppCoDA_glrInv_internal', PACKAGE = 'RcppCoDA', X, V1, V2)
+}
+
 #' @rdname base_lr_transforms
 #' @export
 alrContrast <- function(d, D, inv) {
@@ -25,14 +41,6 @@ clrContrast <- function(D, inv) {
 #' @export
 ilrContrast <- function(D) {
     .Call('_RcppCoDA_ilrContrast', PACKAGE = 'RcppCoDA', D)
-}
-
-glr_internal <- function(X, V) {
-    .Call('_RcppCoDA_glr_internal', PACKAGE = 'RcppCoDA', X, V)
-}
-
-glrInv_internal <- function(X, V) {
-    .Call('_RcppCoDA_glrInv_internal', PACKAGE = 'RcppCoDA', X, V)
 }
 
 alr_internal <- function(X, d) {

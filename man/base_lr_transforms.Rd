@@ -5,8 +5,6 @@
 \alias{clrContrast}
 \alias{ilrContrast}
 \alias{base_lr_transforms}
-\alias{glr}
-\alias{glrInv}
 \alias{alr}
 \alias{alrInv}
 \alias{clr}
@@ -20,10 +18,6 @@ alrContrast(d, D, inv)
 clrContrast(D, inv)
 
 ilrContrast(D)
-
-glr(X, V, b = 1)
-
-glrInv(X, V, b = 1)
 
 alr(X, d = NULL, b = 1)
 
@@ -48,11 +42,11 @@ to column position in untransformed matrix.}
 
 \item{X}{vector, matrix, or array of data (b is the dimension which is compositionally relevant)}
 
-\item{V}{transformation matrix (defines transform; P x D where D is number of parts)
-if NULL then uses ilr default basis (see details)}
-
 \item{b}{index of dimension to operate on (e.g., index of dimension of parts or coords in X;
 default is 1 meaning that compositions/log-ratios are rows)}
+
+\item{V}{transformation matrix (defines transform; P x D where D is number of parts)
+if NULL then uses ilr default basis (see details)}
 }
 \value{
 matrix (converts vectors to column matricies)
@@ -79,10 +73,4 @@ x <- ilrInv(x.ilr)
 # CLR
 x.clr <- clr(x)
 x <- clrInv(x.clr)
-
-# CUSTOM - Be careful if your custom matrix is not
-# orthogonal the inverse transform may not be given by just the transpose!
-# For example, this is the case for the ALR
-V <- matrix(c(1, 1, -1), 1, 3)
-x.custom <- glr(x, V)
 }

@@ -3,39 +3,6 @@ context("Tiny CoDA Functions")
 x <- matrix(runif(300), 100, 3)
 x <- clo(x)
 
-test_that("clo sums to 1", {
-  expect_equal(colSums(x), rep(1, ncol(x)))
-})
-
-test_that("clo correct on arrays", {
-  x <- array(x, dim=c(2,4,3))
-  y <- clo(x)
-  expect_true(all(abs(colSums(y)-1)<1e-10))
-  y <- clo(x, b=2)
-  expect_false(all(abs(colSums(y)-1)<1e-10))
-  expect_true(  
-                all(abs(rowSums(y[,,1])-1) < 1e-10) &
-                all(abs(rowSums(y[,,2])-1) < 1e-10) &
-                all(abs(rowSums(y[,,3])-1) < 1e-10)
-             )
-})
-
-test_that("center sums to 0", {
-  x <- matrix(runif(300), 100, 3)
-  expect_equal(colSums(center(x)), rep(0, ncol(x)))
-  
-  x <- array(x, dim=c(2,4,3))
-  y <- center(x)
-  expect_true(all(abs(colSums(y))<1e-10))
-  y <- center(x, b=2)
-  expect_false(all(abs(colSums(y))<1e-10))
-  expect_true(  
-              all(abs(rowSums(y[,,1])) < 1e-10) &
-              all(abs(rowSums(y[,,2])) < 1e-10) &
-              all(abs(rowSums(y[,,3])) < 1e-10)
-  )
-})
-
 test_that("alrContrast correct", {
   B.inv.true <- cbind(diag(3), 0)
   B.true <- cbind(diag(3), -1)
@@ -84,9 +51,9 @@ test_that("glr and glrInv are inverses and correct", {
   V <- ilrContrast(5)
   expect_error(glr(X, V))
   V <- ilrContrast(3)
-  Y <- glr(X, V, 2)
+  Y <- glr(X, V, b=2)
   expect_equal(Y[,,2], t(glr(t(X[,,2]), V)))
-  expect_equal(X, glrInv(Y, V, 2))
+  expect_equal(X, glrInv(Y, V, b=2))
 })
 
 test_that("alr and alrInv are inverses and correct", {
