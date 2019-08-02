@@ -17,6 +17,14 @@ Beyond standard compositional data transforms, RcppCoDA features the following:
 * The Inter-Quartile Log Ratio Transform
 * Proportionality Calculations (i.e., Phi Statistics)
 
+## Including RcppCoDA through R Interface
+```r
+library(RcppCoDA)
+```
+
+## Including RcppCoDA through C++ Interface
+Nearly all functionality is implemented as a header only library `CoDA.h`
+
 
 ## Installation
 
