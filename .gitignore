@@ -5,3 +5,6 @@
 inst/doc
 /src/RcppCoDA.so
 /src/.tiny_coda.cpp.swp
+/..Rcheck
+/doc/Benchmarking.html
+/Meta
