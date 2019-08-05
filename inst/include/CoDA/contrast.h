@@ -20,23 +20,47 @@ namespace coda {
   //' @param d reference part for alr
   //' @param inv (is this being used for the alr or alrInv?)
   //' @return D-1 x D matrix
+  typedef Eigen::Triplet<double> T;
   Eigen::SparseMatrix<double> alrContrastSparse(int d, int D, bool inv){
     if ((d<1) || (d>D)) throw std::invalid_argument("d must be within [1,...,D]");
-    SparseMatrix<double> B(D-1, D);// = MatrixXd::Zero(D-1, D);
-    B.reserve(Eigen::VectorXi::Constant(D, 2)); // reserve 2 non-zero per column
+    std::vector<T> tripletList;
+    if (inv) tripletList.reserve(D);
+    if (!inv) tripletList.reserve(2*D);
     int pos=0;
     for (int i=0; i<D; i++){
       if (i == (d-1)) pos++;
-      B.insert(i, pos) = 1;
+      if (pos >= D) break;
+      tripletList.push_back(T(i,pos, 1));
+      //B.insert(i, pos) = 1;
       pos++;
     }
     if (!inv) {
       for (int i=0; i<(D-1); i++){
-        B.insert(i,d-1) = -1;
+        tripletList.push_back(T(i,d-1, -1));
+        //B.insert(i,d-1) = -1;
       }
     }
+    SparseMatrix<double> B(D-1, D);
+    B.setFromTriplets(tripletList.begin(), tripletList.end());
     return B;
   }
+  // Eigen::SparseMatrix<double> alrContrastSparse(int d, int D, bool inv){
+  //   if ((d<1) || (d>D)) throw std::invalid_argument("d must be within [1,...,D]");
+  //   SparseMatrix<double> B(D-1, D);// = MatrixXd::Zero(D-1, D);
+  //   B.reserve(Eigen::VectorXi::Constant(D, 2)); // reserve 2 non-zero per column
+  //   int pos=0;
+  //   for (int i=0; i<D; i++){
+  //     if (i == (d-1)) pos++;
+  //     B.insert(i, pos) = 1;
+  //     pos++;
+  //   }
+  //   if (!inv) {
+  //     for (int i=0; i<(D-1); i++){
+  //       B.insert(i,d-1) = -1;
+  //     }
+  //   }
+  //   return B;
+  // }
   
   //' Create alr contrast matrix
   //' @param D total number of parts
