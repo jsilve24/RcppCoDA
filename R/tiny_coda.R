@@ -11,7 +11,7 @@ vec_to_array <- function(x){
   if (is.vector(x)) {
     n <- names(x)
     x <- matrix(x, ncol = 1)
-    colnames(x) <- n
+    rownames(x) <- n
   }
   x
 }

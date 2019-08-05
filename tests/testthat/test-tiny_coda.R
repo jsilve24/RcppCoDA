@@ -34,27 +34,7 @@ test_that("clrContrast correct", {
 })
 
 
-test_that("glr and glrInv are inverses and correct", {
-  X <- abs(matrix(rnorm(10), 5, 2))
-  X <- clo(X)
-  V <- ilrContrast(5)
-  Y <- glr(X, V)
-  
-  # They are inverses
-  expect_equal(X, glrInv(Y, V))
-  
-  # glr Correct and therepy glrInv correct given they are inverses
-  expect_equal(Y, V%*%log(X))
-  
-  X <- array(X, c(3,3,3))
-  X <- clo(X, b=2)
-  V <- ilrContrast(5)
-  expect_error(glr(X, V))
-  V <- ilrContrast(3)
-  Y <- glr(X, V, b=2)
-  expect_equal(Y[,,2], t(glr(t(X[,,2]), V)))
-  expect_equal(X, glrInv(Y, V, b=2))
-})
+
 
 test_that("alr and alrInv are inverses and correct", {
   X <- abs(matrix(rnorm(10), 5, 2))

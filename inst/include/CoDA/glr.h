@@ -95,7 +95,7 @@ namespace coda{
     MatrixXd O(P1+P2, N);
     MatrixXd Y = X.array().log().matrix();
     O.topRows(P1).noalias() = V1*Y.topRows(D1);
-    O.bottomRows(D-D1) = V2*Y.bottomRows(D-D1);
+    O.bottomRows(P2) = V2*Y.bottomRows(D2);
     return O;
   }
   
@@ -116,7 +116,7 @@ namespace coda{
     MatrixXd O(P1+P2, N);
     MatrixXd Y = X.array().log().matrix();
     O.topRows(P1).noalias() = V1*Y.topRows(D1);
-    O.bottomRows(D-D1) = V2*Y.bottomRows(D-D1);
+    O.bottomRows(P2) = V2*Y.bottomRows(D2);
     return O;
   }
   
@@ -137,7 +137,7 @@ namespace coda{
     MatrixXd O(P1+P2, N);
     MatrixXd Y = X.array().log().matrix();
     O.topRows(P1).noalias() = V1*Y.topRows(D1);
-    O.bottomRows(D-D1) = V2*Y.bottomRows(D-D1);
+    O.bottomRows(P2) = V2*Y.bottomRows(D2);
     return O;
   }
   
@@ -158,7 +158,7 @@ namespace coda{
     MatrixXd O(P1+P2, N);
     MatrixXd Y = X.array().log().matrix();
     O.topRows(P1).noalias() = V1*Y.topRows(D1);
-    O.bottomRows(D-D1) = V2*Y.bottomRows(D-D1);
+    O.bottomRows(P2) = V2*Y.bottomRows(D2);
     return O;
   }
   
@@ -172,7 +172,7 @@ namespace coda{
     int P2 = P-P1;
     int D2 = P2;
     int N = X.cols();
-    if (X.rows() < P1) throw std::invalid_argument("X.rows() >= V1.rows()");
+    if (P < P1) throw std::invalid_argument("X.rows() >= V1.rows()");
     
     if (P1 == P){
       MatrixXd O;
@@ -200,7 +200,7 @@ namespace coda{
     int P2 = P-P1;
     int D2 = P2;
     int N = X.cols();
-    if (X.rows() < P1) throw std::invalid_argument("X.rows() >= V1.rows()");
+    if (P < P1) throw std::invalid_argument("X.rows() >= V1.rows()");
     
     if (P1 == P){
       MatrixXd O;
@@ -230,7 +230,7 @@ namespace coda{
     int D2 = V2.cols();
     int P = X.rows();
     int N = X.cols();
-    if (X.rows() != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
+    if (P != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
     
     // else
     MatrixXd O(D1+D2, N);
@@ -256,7 +256,7 @@ namespace coda{
     int D2 = V2.cols();
     int P = X.rows();
     int N = X.cols();
-    if (X.rows() != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
+    if (P != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
     
     // else
     MatrixXd O(D1+D2, N);
@@ -282,7 +282,7 @@ namespace coda{
     int D2 = V2.cols();
     int P = X.rows();
     int N = X.cols();
-    if (X.rows() != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
+    if (P != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
     
     // else
     MatrixXd O(D1+D2, N);
@@ -308,7 +308,7 @@ namespace coda{
     int D2 = V2.cols();
     int P = X.rows();
     int N = X.cols();
-    if (X.rows() != P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
+    if (P!= P1+P2) throw std::invalid_argument("X.rows() must = V1.rows() + V2.rows()");
     
     // else
     MatrixXd O(D1+D2, N);
