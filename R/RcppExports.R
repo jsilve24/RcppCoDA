@@ -204,11 +204,11 @@ clrvar2phi_internal <- function(Sigma) {
 #' @references Jia R Wu, Jean M Macklaim, Briana L Genge, Gregory B Gloor. 
 #'   Finding the centre: corrections for asymmetry in high-throughput sequencing datasets. 
 #'   (2017) arXiv preprint arXiv:1704.01841
-var2iqlrContrast <- function(S, qLow = 0.25, qHigh = 0.25) {
+var2iqlrContrast <- function(S, qLow = 0.25, qHigh = 0.75) {
     .Call('_RcppCoDA_var2iqlrContrast', PACKAGE = 'RcppCoDA', S, qLow, qHigh)
 }
 
-clrvar2iqlrvar_internal <- function(Sigma, qLow, qHigh) {
+clrvar2iqlrvar_internal <- function(Sigma, qLow = 0.25, qHigh = 0.75) {
     .Call('_RcppCoDA_clrvar2iqlrvar_internal', PACKAGE = 'RcppCoDA', Sigma, qLow, qHigh)
 }
 

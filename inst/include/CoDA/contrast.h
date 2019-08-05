@@ -188,8 +188,8 @@ namespace coda {
   //' @param D total number of parts
   Eigen::MatrixXd acContrast(int d1, int D){
     MatrixXd G = alrContrast(d1, D, true);
-    G.array() -= 1/D;
-    return G;
+    G.array() -= 1.0/D;
+    return G.transpose();
   }
   
   //' ALR to ALR
@@ -199,7 +199,7 @@ namespace coda {
   Eigen::MatrixXd aaContrast(int d1, int d2, int D){
     MatrixXd V1 = acContrast(d1, D);
     SparseMatrix<double> V2 = alrContrastSparse(d2, D, false);
-    MatrixXd V = transferContrast(V1, V2);
+    MatrixXd V = V2*V1; //transferContrast(V1, V2);
     return V;
   }
   
@@ -210,7 +210,7 @@ namespace coda {
   template <typename T>
   Eigen::MatrixXd aiContrast(int d1, Eigen::MatrixBase<T>& V2, int D){
     MatrixXd V1 = acContrast(d1, D);
-    MatrixXd V = transferContrast(V1, V2);
+    MatrixXd V = V2*V1;//transferContrast(V1, V2);
     return V;
   }
 

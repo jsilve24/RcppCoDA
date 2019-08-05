@@ -315,12 +315,12 @@ Eigen::MatrixXd clrvar2phi_internal(Eigen::Map<Eigen::MatrixXd>& Sigma){
 //'   Finding the centre: corrections for asymmetry in high-throughput sequencing datasets. 
 //'   (2017) arXiv preprint arXiv:1704.01841
 // [[Rcpp::export]]
-Eigen::MatrixXd var2iqlrContrast(Eigen::Map<Eigen::VectorXd>& S, double qLow=0.25, double qHigh=0.25){
+Eigen::MatrixXd var2iqlrContrast(Eigen::Map<Eigen::VectorXd>& S, double qLow=0.25, double qHigh=0.75){
   return coda::var2iqlrContrast(S, qLow, qHigh);
 }
 
 // [[Rcpp::export]]
-Eigen::MatrixXd clrvar2iqlrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, double qLow, double qHigh){
+Eigen::MatrixXd clrvar2iqlrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma, double qLow=0.25, double qHigh=0.75){
   return coda::clrvar2iqlrvar(Sigma, qLow, qHigh);
 }
 
