@@ -14,11 +14,11 @@ array_post(X, b, s)
 \item{X}{array}
 
 \item{b}{part/coord index in array (vector of length 2 if using covariance versions)}
+
+\item{s}{dimensions of array desired (for array_post)}
 }
 \value{
 matrix (if array_pre) array (if array_post)
-
-s dimensions of array desired (for array_post)
 }
 \description{
 Functions for setting up transforms and handing weird arrays

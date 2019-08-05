@@ -1,6 +1,6 @@
 #' If X is a vector - convert it into a matrix (with 1 column)
 #' If X is an array it stays an array
-#' @param X thing to test/transform
+#' @param x thing to test/transform
 #' @return matrix
 #' @export
 #'
@@ -19,8 +19,8 @@ vec_to_array <- function(x){
 #' Functions for setting up transforms and handing weird arrays 
 #' @param X array
 #' @param b part/coord index in array (vector of length 2 if using covariance versions)
+#' @param s dimensions of array desired (for array_post)
 #' @return matrix (if array_pre) array (if array_post)
-#' @return s dimensions of array desired (for array_post)
 #' @name array_munge
 #' @export
 array_pre <- function(X, b){

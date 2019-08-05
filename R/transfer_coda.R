@@ -12,7 +12,7 @@
 #' default is 1 meaning that compositions/log-ratios are rows) Note, for covariance matricies, 
 #' b is meaningless, first two dimensions must be log-ratio coordinates. 
 #' @param Sigma covariance matrix in specified transformed space
-#' @param V ILR contrast matrix (i.e., transformation matrix of ILR)
+#' @param D total number of parts in Sigma 
 #' @param V1 ILR contrast matrix of basis Sigma is already in
 #' @param V2 ILR contrast matrix of basis Sigma is desired in
 #' @param d1 alr reference element Sigma is already expressed with respec to

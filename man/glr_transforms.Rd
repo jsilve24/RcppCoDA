@@ -29,10 +29,11 @@ Generalized LR Transform
 \details{
 calculates
 
-  let Y = cbind[Y1, Y2] 
-  let X = cbind[X1, X2] 
-  Calculates Y = GLR(X) or Y=GLRINV(X) defined by 
+  let Y = cbind[Y1, Y2] and  X = cbind[X1, X2]. This function  
+  alculates Y = GLR(X) or Y=GLRINV(X) defined by:
+   
   Y1 = GLR(X1, V1) or Y1 = GLRINV(X1, V1)
+  
   Y2 = GLR(X2, V2) or Y2 = GLRINV(X2, V2)
   
 If V2 is not given then assumes that Y2 = X2. 
@@ -42,6 +43,8 @@ In that case determines the size of X2 and Y2 based on on size of V1.
 # CUSTOM - Be careful if your custom matrix is not
 # orthogonal the inverse transform may not be given by just the transpose!
 # For example, this is the case for the ALR
+x <- matrix(runif(30), 10, 3)
+x <- clo(x)
 V <- matrix(c(1, 1, -1), 1, 3)
 x.custom <- glr(x, V)
 }
