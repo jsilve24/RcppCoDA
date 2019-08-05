@@ -14,5 +14,6 @@ Suggests:
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
-    covr
+    covr, 
+    microbenchmark
 VignetteBuilder: knitr
