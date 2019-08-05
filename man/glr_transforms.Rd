@@ -29,10 +29,11 @@ Generalized LR Transform
 \details{
 calculates
 
-  let Y = cbind[Y1, Y2] 
-  let X = cbind[X1, X2] 
-  Calculates Y = GLR(X) or Y=GLRINV(X) defined by 
+  let Y = cbind[Y1, Y2] and  X = cbind[X1, X2]. This function  
+  alculates Y = GLR(X) or Y=GLRINV(X) defined by:
+   
   Y1 = GLR(X1, V1) or Y1 = GLRINV(X1, V1)
+  
   Y2 = GLR(X2, V2) or Y2 = GLRINV(X2, V2)
   
 If V2 is not given then assumes that Y2 = X2. 
