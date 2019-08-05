@@ -6,7 +6,7 @@
 \alias{clrvar2iqlrvar}
 \title{Functions for implementing / calculating IQLR}
 \usage{
-var2iqlrContrast(S, qLow = 0.25, qHigh = 0.25)
+var2iqlrContrast(S, qLow = 0.25, qHigh = 0.75)
 
 clrvar2iqlrvar(Sigma, qLow = 0.25, qHigh = 0.75)
 }
