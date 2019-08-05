@@ -34,8 +34,6 @@ test_that("clrContrast correct", {
 })
 
 
-
-
 test_that("alr and alrInv are inverses and correct", {
   X <- abs(matrix(rnorm(10), 5, 2))
   X <- clo(X)
@@ -46,8 +44,16 @@ test_that("alr and alrInv are inverses and correct", {
   # Correctness
   expect_equal(Y, Y.manual)
 
+  # Default ALR is D
+  expect_equal(alr(X, d=nrow(X)), alr(X))
+  Y <- alr(X)
+  expect_equal(X, alrInv(Y))
+  
+  # Error when d is too large
+  expect_error(alr(X, 100))
+  
   # Inverse - and alrInv by association
-  expect_equal(X, alrInv(Y, 3))
+  expect_equal(X, alrInv(Y))
   
   X <- array(X, c(3,3,3))
   X <- clo(X, b=2)
@@ -86,6 +92,9 @@ test_that("ilr and ilrInv are inverses and correct", {
   
   # Inverse - and alrInv by association
   expect_equal(X, ilrInv(Y))
+  
+  V <- ilrContrast(5)
+  expect_error(ilr(X, V[,-1]))
   
   X <- array(X, c(3,3,3))
   X <- clo(X, b=2)

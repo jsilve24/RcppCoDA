@@ -17,6 +17,7 @@ test_that("transfers of data correct", {
   expect_equal(X.clr, alr2clr(X.alr, 5))
   expect_equal(X.alr, clr2alr(X.clr, 5))
   expect_equal(alr2alr(X.alr, 5, 3), ilr2alr(X.ilr, V, 3))
+
 })
 
 X <- matrix(abs(rnorm(10)), 5, 2)
