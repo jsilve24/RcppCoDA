@@ -86,6 +86,8 @@ alrvar2ilrvar(Sigma, d1, V2)
 
 \item{d2}{alr reference element Sigma is to be expressed with respect to}
 
+\item{D}{total number of parts in Sigma}
+
 \item{d1}{alr reference element Sigma is already expressed with respec to}
 
 \item{X}{data to transform between representations}
@@ -95,8 +97,6 @@ default is 1 meaning that compositions/log-ratios are rows) Note, for covariance
 b is meaningless, first two dimensions must be log-ratio coordinates.}
 
 \item{Sigma}{covariance matrix in specified transformed space}
-
-\item{V}{ILR contrast matrix (i.e., transformation matrix of ILR)}
 }
 \value{
 matrix

@@ -42,6 +42,8 @@ In that case determines the size of X2 and Y2 based on on size of V1.
 # CUSTOM - Be careful if your custom matrix is not
 # orthogonal the inverse transform may not be given by just the transpose!
 # For example, this is the case for the ALR
+x <- matrix(runif(30), 10, 3)
+x <- clo(x)
 V <- matrix(c(1, 1, -1), 1, 3)
 x.custom <- glr(x, V)
 }

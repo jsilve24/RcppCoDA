@@ -8,7 +8,7 @@ If X is an array it stays an array}
 vec_to_array(x)
 }
 \arguments{
-\item{X}{thing to test/transform}
+\item{x}{thing to test/transform}
 }
 \value{
 matrix
