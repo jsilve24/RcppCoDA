@@ -182,6 +182,10 @@ clrvar2vararray_internal <- function(Sigma) {
     .Call('_RcppCoDA_clrvar2vararray_internal', PACKAGE = 'RcppCoDA', Sigma)
 }
 
+clrvar2phi_internal <- function(Sigma) {
+    .Call('_RcppCoDA_clrvar2phi_internal', PACKAGE = 'RcppCoDA', Sigma)
+}
+
 #' Functions for implementing / calculating IQLR 
 #' 
 #' var2iqlrContrast calculates contrast matrix in iqlr based on part-wise variance 

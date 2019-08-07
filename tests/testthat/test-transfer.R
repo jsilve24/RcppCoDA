@@ -51,6 +51,12 @@ test_that("transfers of covariance are correct", {
 test_that("phi statistics correct", {
   Sigma <- array(c(Sigma, .0001*Sigma), c(4,4,2))
   foo <- clrvar2phi(Sigma)
-  expect_equal(foo[4,3,2], Sigma[4,4,2] + Sigma[3,3,2] - 2*Sigma[4,3,2])
+  expect_equal(foo[4,3,2], (Sigma[4,4,2] + Sigma[3,3,2] - 2*Sigma[4,3,2]) / Sigma[4,4,2])
+})
+
+test_that("variation array correct", {
+  Sigma <- array(c(Sigma, .0001*Sigma), c(4,4,2))
+  foo <- clrvar2vararray(Sigma)
+  expect_equal(foo[4,3,2], (Sigma[4,4,2] + Sigma[3,3,2] - 2*Sigma[4,3,2]))
 })
 

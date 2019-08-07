@@ -287,6 +287,29 @@ clrvar2vararray <- function(Sigma){
 }
 
 
+#' Calculate Phi Statistics (Proportionality) from CLR Covariances
+#' 
+#' Assumes parts are the first two dimensions of Sigma
+#' 
+#' @param Sigma Covariance matrix Px(PN) where N is number of 
+#'   covariance matricies in CLR space
+#' @return Array (same dimension as Sigma) but elements represent phi statistics
+#' @export
+#' @references Lovell, David, Vera Pawlowsky-Glahn, Juan Jose Egozcue, 
+#'   Samuel Marguerat, and Jurg Bahler. 2015. Proportionality: A Valid Alternative 
+#'   to Correlation for Relative Data. PLoS Computational Biology 11 (3). 
+#'   Public Library of Science: e1004075.
+clrvar2phi<- function(Sigma){
+  b <- 1:2
+  Sigma <- vec_to_array(Sigma)
+  s <- dim(Sigma)
+  Sigma <- array_pre(Sigma, b)
+  Sigma <- clrvar2phi_internal(Sigma)
+  Sigma <- array_post(Sigma, b, s)
+  return(Sigma)
+}
+
+
 #' @export
 #' @rdname iqlr
 clrvar2iqlrvar <- function(Sigma, qLow=.25, qHigh=.75){

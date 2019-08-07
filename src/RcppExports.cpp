@@ -494,6 +494,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// clrvar2phi_internal
+Eigen::MatrixXd clrvar2phi_internal(Eigen::Map<Eigen::MatrixXd>& Sigma);
+RcppExport SEXP _RcppCoDA_clrvar2phi_internal(SEXP SigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< Eigen::Map<Eigen::MatrixXd>& >::type Sigma(SigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(clrvar2phi_internal(Sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
 // var2iqlrContrast
 Eigen::MatrixXd var2iqlrContrast(Eigen::Map<Eigen::VectorXd>& S, double qLow, double qHigh);
 RcppExport SEXP _RcppCoDA_var2iqlrContrast(SEXP SSEXP, SEXP qLowSEXP, SEXP qHighSEXP) {
@@ -562,6 +573,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_RcppCoDA_ilrvar2alrvar_internal", (DL_FUNC) &_RcppCoDA_ilrvar2alrvar_internal, 3},
     {"_RcppCoDA_alrvar2ilrvar_internal", (DL_FUNC) &_RcppCoDA_alrvar2ilrvar_internal, 3},
     {"_RcppCoDA_clrvar2vararray_internal", (DL_FUNC) &_RcppCoDA_clrvar2vararray_internal, 1},
+    {"_RcppCoDA_clrvar2phi_internal", (DL_FUNC) &_RcppCoDA_clrvar2phi_internal, 1},
     {"_RcppCoDA_var2iqlrContrast", (DL_FUNC) &_RcppCoDA_var2iqlrContrast, 3},
     {"_RcppCoDA_clrvar2iqlrvar_internal", (DL_FUNC) &_RcppCoDA_clrvar2iqlrvar_internal, 3},
     {NULL, NULL, 0}

@@ -1,7 +1,7 @@
 Package: RcppCoDA
 Type: Package
 Title: Blazing fast compositional data analysis of vectors, matrices, and arrays
-Version: 0.1
+Version: 0.1.1
 Date: 2019-08-05
 Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
                      email = "Justin.Silverman@duke.edu"))
