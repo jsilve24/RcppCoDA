@@ -288,8 +288,8 @@ Eigen::MatrixXd alrvar2ilrvar_internal(Eigen::Map<Eigen::MatrixXd>& Sigma,
 }
 
 // [[Rcpp::export]]
-Eigen::MatrixXd clrvar2phi_internal(Eigen::Map<Eigen::MatrixXd>& Sigma){
-  return coda::clrvar2phi(Sigma);
+Eigen::MatrixXd clrvar2vararray_internal(Eigen::Map<Eigen::MatrixXd>& Sigma){
+  return coda::clrvar2vararray(Sigma);
 }
 
 //' Functions for implementing / calculating IQLR 

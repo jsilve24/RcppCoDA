@@ -264,24 +264,24 @@ alrvar2ilrvar <- function(Sigma, d1, V2){
 }
 
 
-#' Calculate Phi statistics (proportionality) from CLR Covariances
+#' Calculate Variation Array from CLR Covariances
 #' 
 #' Assumes parts are the first two dimensions of Sigma
 #' 
 #' @param Sigma Covariance matrix Px(PN) where N is number of 
 #'   covariance matricies in CLR space
-#' @return Array (same dimension as Sigma) but elements represent phi statistics
+#' @return Array (same dimension as Sigma) but elements represent variation of pariwise log-ratios
 #' @export
 #' @references Lovell, David, Vera Pawlowsky-Glahn, Juan Jose Egozcue, 
 #'   Samuel Marguerat, and Jurg Bahler. 2015. Proportionality: A Valid Alternative 
 #'   to Correlation for Relative Data. PLoS Computational Biology 11 (3). 
 #'   Public Library of Science: e1004075.
-clrvar2phi <- function(Sigma){
+clrvar2vararray <- function(Sigma){
   b <- 1:2
   Sigma <- vec_to_array(Sigma)
   s <- dim(Sigma)
   Sigma <- array_pre(Sigma, b)
-  Sigma <- clrvar2phi_internal(Sigma)
+  Sigma <- clrvar2vararray_internal(Sigma)
   Sigma <- array_post(Sigma, b, s)
   return(Sigma)
 }

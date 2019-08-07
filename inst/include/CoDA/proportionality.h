@@ -18,7 +18,7 @@ namespace coda {
 
   namespace internal {
     template <typename TS>
-    Eigen::MatrixXd clrvar2phi_single(Eigen::MatrixBase<TS>& Sigma){
+    Eigen::MatrixXd clrvar2vararray_single(Eigen::MatrixBase<TS>& Sigma){
       int P = Sigma.rows();
       MatrixXd res(P,P);
       if (Sigma.cols() != P) throw std::invalid_argument("Sigma must be PxP see documentation");
@@ -31,12 +31,12 @@ namespace coda {
     }
   }
   
-  //' Calculate Phi statistics (proportionality) from CLR Covariances
+  //' Calculate Variation Array from CLR Covariances
   //' @param Sigma Covariance matrix Px(PN) where N is number of 
   //'   covariance matricies in CLR space
   //' See Lovell "Proportionality: A valid alternative ..." for details. 
   template <typename TS>
-  Eigen::MatrixXd clrvar2phi(Eigen::MatrixBase<TS>& Sigma){
+  Eigen::MatrixXd clrvar2vararray(Eigen::MatrixBase<TS>& Sigma){
     int P1 = Sigma.rows();
     int N = Sigma.cols();
     if ( (N % P1) != 0 ) throw std::invalid_argument("Sigma must be Px(PN) see documentation");
@@ -46,7 +46,7 @@ namespace coda {
     MatrixXd res(P1, N*P1);
     for (int n=0; n<N; n++){
       S = Sigma.middleCols(n*P1, P1);
-      res.middleCols(n*P1,P1) = internal::clrvar2phi_single(S);
+      res.middleCols(n*P1,P1) = internal::clrvar2vararray_single(S);
     }
     return res;
   } 
