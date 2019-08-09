@@ -141,6 +141,9 @@ X <- matrix(abs(rnorm(20)), 4,5)
 ```
 
 
+Here is an image summarising all the functions I will be talking about in this section:
+![Overview of Shortcut Functions in RcppCoDA](CoDA_nutshell.png)
+
 ### The ALR Transforms
 The ALR has a single paramter $d$ representing which of the $D$ dimensions is
 taken as reference. The ALR is a transform from $\mathcal{S}^D\rightarrow \mathcal{R}^{D-1}$.
@@ -202,16 +205,36 @@ $$
 
 The function `ilrContrast` can take two different types of arguments. 
 ```{r}
-S <- rbind(c(1,1,-1,1), c(1,-1, 0, 0), c(0, 0, 1, -1))
+S <- rbind(c(1,1,-1,-1), c(1,-1, 0, 0), c(0, 0, 1, -1))
+V <- ilrContrast(S)
+(X.ilr <- ilr(X, V))
+
+# Inverse 
+ilrInv(X.ilr, V)
 ```
 
-There are also a subset of ILR transforms which correspond to a sequential binary partition (SBP). RcppCoDA provides a function `ilrContrast` which, if passed an integer will build the default ILR contrast of that dimension, otherwise if passed a sign matrix encoding an SBP it will produce a contrast matrix corresponding to that SBP. 
+## The Contrast Matricies
+
+The functions `alrContrast`, `clrContrast`, and `ilrContrast` provide easy access
+to the contrst matricies corresponding to these three transforms. The function `ilrContrast` was
+already introduced above, the other two functions just need a bit of explanation.
+As I mentioned above, only ILR contrast matricies are the same for the forward and inverse transformations (e.g., 
+we could reuse the same $V$ in the above example when calling `ilr` and `ilrInv`). However, both the ALR and CLR have different contrast matricies for the forward and inverse transforms. Therefore `alrContrast` and `clrContrast` accept an additional argument `inv` which should be `inv=TRUE` if calculating the inverse transforms. 
+```{r}
+# calculate contrast matrix for the alrInv transform a 4 part composition with respect
+# to the second part
+V.alr.inv <- alrContrast(d=2, D=4, inv=TRUE)
+
+# calculate contrast matrix of the clr transform for a 4 part composition
+V.clr <- clrContrast(D=4, inv=FALSE)
+```
 
 
-# The Contrast Matricies
+## The Transfer Matrices
 
-# The Transfer Matrices
+## Transformation of Covariance Matrices
 
+# More features of RcppCoDA
 
 ```{r setup}
 
