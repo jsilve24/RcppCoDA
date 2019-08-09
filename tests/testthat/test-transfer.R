@@ -5,8 +5,8 @@ test_that("transfers of data correct", {
   X.clr <- clr(X)
   X.alr <- alr(X)
   V <- ilrContrast(5)
-  expect_equal(X.clr, icContrast(V)%*%X.ilr)
-  expect_equal(X.ilr, ciContrast(V)%*%X.clr)
+  expect_equal(X.clr, icTransfer(V)%*%X.ilr)
+  expect_equal(X.ilr, ciTransfer(V)%*%X.clr)
   
   
   expect_equal(X.clr, ilr2clr(X.ilr, V))

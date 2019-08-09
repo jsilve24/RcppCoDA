@@ -87,11 +87,14 @@ Eigen::MatrixXd clrContrast(int D, bool inv){
   return coda::clrContrast(D, inv);
 }
 
-//' @rdname base_lr_transforms
-//' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd ilrContrast(int D){
+Eigen::MatrixXd ilrContrastDefault_internal(int D){
   return coda::ilrContrast(D);
+}
+
+// [[Rcpp::export]]
+Eigen::MatrixXd ilrContrastSign_internal(Eigen::Map<Eigen::MatrixXi>& S){
+  return coda::ilrContrast(S);
 }
 
 // [[Rcpp::export]]
@@ -138,58 +141,58 @@ Eigen::MatrixXd ilrInv_internal(Eigen::Map<Eigen::MatrixXd>& X,
   
 //' @rdname convert_coda
 // [[Rcpp::export]]
-Eigen::MatrixXd iiContrast(Eigen::Map<Eigen::MatrixXd>& V1, 
+Eigen::MatrixXd iiTransfer(Eigen::Map<Eigen::MatrixXd>& V1, 
                            Eigen::Map<Eigen::MatrixXd>& V2){
-  return coda::iiContrast(V1, V2);
+  return coda::iiTransfer(V1, V2);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd icContrast(Eigen::Map<Eigen::MatrixXd>& V1){
-  return coda::icContrast(V1);
+Eigen::MatrixXd icTransfer(Eigen::Map<Eigen::MatrixXd>& V1){
+  return coda::icTransfer(V1);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd ciContrast(Eigen::Map<Eigen::MatrixXd>& V2){
-  return coda::ciContrast(V2);
+Eigen::MatrixXd ciTransfer(Eigen::Map<Eigen::MatrixXd>& V2){
+  return coda::ciTransfer(V2);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd iaContrast(Eigen::Map<Eigen::MatrixXd>& V1, int d2, int D){
-  return coda::iaContrast(V1, d2, D);
+Eigen::MatrixXd iaTransfer(Eigen::Map<Eigen::MatrixXd>& V1, int d2, int D){
+  return coda::iaTransfer(V1, d2, D);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd aiContrast(int d2, Eigen::Map<Eigen::MatrixXd>& V2, int D){
-  return coda::aiContrast(d2, V2, D);
+Eigen::MatrixXd aiTransfer(int d2, Eigen::Map<Eigen::MatrixXd>& V2, int D){
+  return coda::aiTransfer(d2, V2, D);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd caContrast(int d2, int D){
-  return coda::caContrast(d2, D);
+Eigen::MatrixXd caTransfer(int d2, int D){
+  return coda::caTransfer(d2, D);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd acContrast(int d1, int D){
-  return coda::acContrast(d1, D);
+Eigen::MatrixXd acTransfer(int d1, int D){
+  return coda::acTransfer(d1, D);
 }
 
 //' @rdname convert_coda
 //' @export
 // [[Rcpp::export]]
-Eigen::MatrixXd aaContrast(int d1, int d2, int D){
-  return coda::aaContrast(d1, d2, D);
+Eigen::MatrixXd aaTransfer(int d1, int d2, int D){
+  return coda::aaTransfer(d1, d2, D);
 }
 
 // [[Rcpp::export]]

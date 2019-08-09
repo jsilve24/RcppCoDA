@@ -75,14 +75,61 @@ namespace coda {
   }
   
   
+  // //' Create ilr default contrast matrix
+  // //' @param D total number of parts
+  // //' @return D-1xD contrast matrix (a basis)
+  // Eigen::MatrixXd ilrContrast(int D){
+  //   if (D < 2) throw std::invalid_argument("D must be > 1");
+  //   MatrixXd B = alrContrast(D, D, false);
+  //   MatrixXd Q = B.transpose().householderQr().householderQ().transpose();
+  //   return Q.topRows(D-1);
+  // }
   //' Create ilr default contrast matrix
   //' @param D total number of parts
   //' @return D-1xD contrast matrix (a basis)
   Eigen::MatrixXd ilrContrast(int D){
-    if (D < 2) throw std::invalid_argument("D must be > 1");
-    MatrixXd B = alrContrast(D, D, false);
-    MatrixXd Q = B.transpose().householderQr().householderQ().transpose();
-    return Q.topRows(D-1);
+    MatrixXd V(D-1, D);
+    double ap, an;
+    for (int i=1; i<=(D-1); i++){
+      ap = sqrt(1.0/( (D-i)*(D-i+1.0)  ) );
+      an = -sqrt((D-i)/ (D-i+1.0) );
+      for (int j=1; j<=D; j++){
+        if (j <= D-i) V(i-1,j-1) = ap;
+        else if (j == D-i+1) V(i-1,j-1) = an;
+        else V(i-1,j-1)=0;
+      }
+    }
+    return V;
+  }
+  
+  
+  //' Create ilr contrast from sign matrix
+  //' @param S D-1 x D sign matrix (all entries either 0, 1, or -1)
+  //' @return D-1 x D contrast matrix (a basis)
+  template <typename TS>
+  Eigen::MatrixXd ilrContrast(Eigen::MatrixBase<TS>& S){
+    int D = S.cols();
+    MatrixXd V(D-1, D);
+    double np, nn; // number positive / negative
+    double ap, an, a;
+    for (int i=0; i<(D-1); i++){
+      np=0;
+      nn=0;
+      for (int j=0; j<D; j++){
+        if (S(i,j)==1) np += 1.0;
+        else if (S(i,j)==-1) nn += 1.0;
+        else if (S(i,j) != 0) throw std::invalid_argument("S must be a valid sign matrix");
+      }
+      a = sqrt(nn*np/(nn+np));
+      ap = a/np;
+      an = -a/nn;
+      for (int j=0; j<D; j++){
+        if (S(i,j)==1) V(i,j) = ap;
+        else if (S(i,j)==-1) V(i,j) = an;
+        else V(i,j)=0;
+      }
+    }
+    return V;
   }
   
   //' Create CLR contrast matrix
@@ -100,6 +147,8 @@ namespace coda {
       return B;
     }
   }
+  
+  namespace internal {
 
   //' @param V1 contrast matrix of basis in currently
   //' @param V2 contrast matrix of basis to go to
@@ -138,19 +187,21 @@ namespace coda {
     return V2*V1.transpose();
   }
   
+  }
+  
   //' ILR to ILR (just call transferContrast if you know what your doing)
   //' @param V1 contrast matrix of basis in currently
   //' @param V2 contrast matrix of basis to go to
   template <typename TV1, typename TV2>
-  Eigen::MatrixXd iiContrast(Eigen::MatrixBase<TV1>& V1, 
+  Eigen::MatrixXd iiTransfer(Eigen::MatrixBase<TV1>& V1, 
                              Eigen::MatrixBase<TV2>& V2){
-    return transferContrast(V1, V2);
+    return internal::transferContrast(V1, V2);
   }
   
   //' ILR to CLR (don't bother if you know what your doing)
   //' @param V1 contrast matrix of basis in currently
   template <typename TV1>
-  Eigen::MatrixXd icContrast(Eigen::MatrixBase<TV1>& V1){
+  Eigen::MatrixXd icTransfer(Eigen::MatrixBase<TV1>& V1){
     MatrixXd V = V1.transpose();
     return V;
   }
@@ -158,7 +209,7 @@ namespace coda {
   //' CLR to ILR (don't bother if you know what your doing)
   //' @param V2 contrast matrix of basis in currently
   template <typename TV2>
-  Eigen::MatrixXd ciContrast(Eigen::MatrixBase<TV2>& V2){
+  Eigen::MatrixXd ciTransfer(Eigen::MatrixBase<TV2>& V2){
     return V2;
   }
   
@@ -168,9 +219,9 @@ namespace coda {
   //' @param d2 alr reference part to go into
   //' @param D number of total parts
   template <typename T>
-  Eigen::MatrixXd iaContrast(Eigen::MatrixBase<T>& V1, int d2, int D){
+  Eigen::MatrixXd iaTransfer(Eigen::MatrixBase<T>& V1, int d2, int D){
     SparseMatrix<double> V2 = alrContrastSparse(d2, D, false);
-    MatrixXd V = transferContrast(V1, V2);
+    MatrixXd V = internal::transferContrast(V1, V2);
     return V;
   }
   
@@ -178,7 +229,7 @@ namespace coda {
   //' CLR to ALR (don't bother if you know what your doing)
   //' @param d2 contrast matrix of basis in currently
   //' @param D total number of parts
-  Eigen::MatrixXd caContrast(int d2, int D){
+  Eigen::MatrixXd caTransfer(int d2, int D){
     MatrixXd V = alrContrast(d2, D, false);
     return V;
   }
@@ -186,7 +237,7 @@ namespace coda {
   //' ALR to CLR
   //' @param d1 contrast matrix of basis in currently
   //' @param D total number of parts
-  Eigen::MatrixXd acContrast(int d1, int D){
+  Eigen::MatrixXd acTransfer(int d1, int D){
     MatrixXd G = alrContrast(d1, D, true);
     G.array() -= 1.0/D;
     return G.transpose();
@@ -196,8 +247,8 @@ namespace coda {
   //' @param d1 alr reference part is in currently
   //' @param d2 alr reference part to go into
   //' @param D number of total parts
-  Eigen::MatrixXd aaContrast(int d1, int d2, int D){
-    MatrixXd V1 = acContrast(d1, D);
+  Eigen::MatrixXd aaTransfer(int d1, int d2, int D){
+    MatrixXd V1 = acTransfer(d1, D);
     SparseMatrix<double> V2 = alrContrastSparse(d2, D, false);
     MatrixXd V = V2*V1; //transferContrast(V1, V2);
     return V;
@@ -208,8 +259,8 @@ namespace coda {
   //' @param V2 contrast matrix of basis to go into
   //' @param D number of total parts
   template <typename T>
-  Eigen::MatrixXd aiContrast(int d1, Eigen::MatrixBase<T>& V2, int D){
-    MatrixXd V1 = acContrast(d1, D);
+  Eigen::MatrixXd aiTransfer(int d1, Eigen::MatrixBase<T>& V2, int D){
+    MatrixXd V1 = acTransfer(d1, D);
     MatrixXd V = V2*V1;//transferContrast(V1, V2);
     return V;
   }

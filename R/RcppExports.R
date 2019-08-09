@@ -37,10 +37,12 @@ clrContrast <- function(D, inv) {
     .Call('_RcppCoDA_clrContrast', PACKAGE = 'RcppCoDA', D, inv)
 }
 
-#' @rdname base_lr_transforms
-#' @export
-ilrContrast <- function(D) {
-    .Call('_RcppCoDA_ilrContrast', PACKAGE = 'RcppCoDA', D)
+ilrContrastDefault_internal <- function(D) {
+    .Call('_RcppCoDA_ilrContrastDefault_internal', PACKAGE = 'RcppCoDA', D)
+}
+
+ilrContrastSign_internal <- function(S) {
+    .Call('_RcppCoDA_ilrContrastSign_internal', PACKAGE = 'RcppCoDA', S)
 }
 
 alr_internal <- function(X, d) {
@@ -68,50 +70,50 @@ ilrInv_internal <- function(X, V = NULL) {
 }
 
 #' @rdname convert_coda
-iiContrast <- function(V1, V2) {
-    .Call('_RcppCoDA_iiContrast', PACKAGE = 'RcppCoDA', V1, V2)
+iiTransfer <- function(V1, V2) {
+    .Call('_RcppCoDA_iiTransfer', PACKAGE = 'RcppCoDA', V1, V2)
 }
 
 #' @rdname convert_coda
 #' @export
-icContrast <- function(V1) {
-    .Call('_RcppCoDA_icContrast', PACKAGE = 'RcppCoDA', V1)
+icTransfer <- function(V1) {
+    .Call('_RcppCoDA_icTransfer', PACKAGE = 'RcppCoDA', V1)
 }
 
 #' @rdname convert_coda
 #' @export
-ciContrast <- function(V2) {
-    .Call('_RcppCoDA_ciContrast', PACKAGE = 'RcppCoDA', V2)
+ciTransfer <- function(V2) {
+    .Call('_RcppCoDA_ciTransfer', PACKAGE = 'RcppCoDA', V2)
 }
 
 #' @rdname convert_coda
 #' @export
-iaContrast <- function(V1, d2, D) {
-    .Call('_RcppCoDA_iaContrast', PACKAGE = 'RcppCoDA', V1, d2, D)
+iaTransfer <- function(V1, d2, D) {
+    .Call('_RcppCoDA_iaTransfer', PACKAGE = 'RcppCoDA', V1, d2, D)
 }
 
 #' @rdname convert_coda
 #' @export
-aiContrast <- function(d2, V2, D) {
-    .Call('_RcppCoDA_aiContrast', PACKAGE = 'RcppCoDA', d2, V2, D)
+aiTransfer <- function(d2, V2, D) {
+    .Call('_RcppCoDA_aiTransfer', PACKAGE = 'RcppCoDA', d2, V2, D)
 }
 
 #' @rdname convert_coda
 #' @export
-caContrast <- function(d2, D) {
-    .Call('_RcppCoDA_caContrast', PACKAGE = 'RcppCoDA', d2, D)
+caTransfer <- function(d2, D) {
+    .Call('_RcppCoDA_caTransfer', PACKAGE = 'RcppCoDA', d2, D)
 }
 
 #' @rdname convert_coda
 #' @export
-acContrast <- function(d1, D) {
-    .Call('_RcppCoDA_acContrast', PACKAGE = 'RcppCoDA', d1, D)
+acTransfer <- function(d1, D) {
+    .Call('_RcppCoDA_acTransfer', PACKAGE = 'RcppCoDA', d1, D)
 }
 
 #' @rdname convert_coda
 #' @export
-aaContrast <- function(d1, d2, D) {
-    .Call('_RcppCoDA_aaContrast', PACKAGE = 'RcppCoDA', d1, d2, D)
+aaTransfer <- function(d1, d2, D) {
+    .Call('_RcppCoDA_aaTransfer', PACKAGE = 'RcppCoDA', d1, d2, D)
 }
 
 ilr2ilr_internal <- function(X, V1, V2) {

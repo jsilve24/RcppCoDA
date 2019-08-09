@@ -134,7 +134,8 @@ center <- function(X, b=1){
 #'   if NULL then uses ilr default basis (see details)
 #' @param d for ALR, which component (integer position) to take as reference
 #' (default is nrow(x) for alr or nrow(x)+1 for alrInv) for alrInv corresponds 
-#' to column position in untransformed matrix.
+#' to column position in untransformed matrix. ilrContrast can accept a D-1 x D sign matrix to produce a 
+#' Sequential Binary Partition basis. 
 #' @param b index of dimension to operate on (e.g., index of dimension of parts or coords in X;
 #' default is 1 meaning that compositions/log-ratios are rows)
 #' @param inv for ALR and CLR, transformation matrix is different forward and inverse

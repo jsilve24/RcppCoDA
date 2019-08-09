@@ -1,7 +1,7 @@
 #' Transfer data and covariance matricies from one coordinate system to another
 #' 
 #' Naming Conventions:
-#' xxContrast produces a contrast matrix for transforming between representations where 
+#' xxTransfer produces a transfer matrix for transforming between representations where 
 #' i=ILR, c=CLR, a=ALR. x2x represent transformations of data between coordinate systems 
 #' xvar2xvar represent transformations of covariance matricies between coordinate systems. 
 #' By convention all functions take arguments as follows: all functions have the form function(a,b,c)

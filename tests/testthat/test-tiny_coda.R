@@ -17,15 +17,6 @@ test_that("alrContrast correct", {
   expect_equal(B.true, alrContrast(3, 5, FALSE))
 }) 
 
-test_that("ilrContrast correct", {
-  B <- ilrContrast(4)
-  B.test <- t(qr.Q(qr(t(alrContrast(4,4,FALSE)))))
-  expect_equal(B, B.test)
-  expect_equal(B%*%t(B), diag(3))
-  expect_equal(t(B)%*%B, diag(4)-1/4)
-})
-
-
 test_that("clrContrast correct", {
   B <- matrix(-1, 4, 4) + 4*diag(4)
   B <- B/4

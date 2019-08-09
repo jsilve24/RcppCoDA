@@ -22,16 +22,35 @@ test_that("Contrast Dimensions", {
   V1 <- ilrContrast(D)
   V2 <- ilrContrast(D)
   V2 <- V2[-1,]
-  expect_equal(dim(iiContrast(V1, V2)), c(nrow(V2), nrow(V1)))
-  expect_equal(dim(icContrast(V1)), c(D, D-1))
-  expect_equal(dim(ciContrast(V1)), c(D-1, D))
-  expect_equal(dim(iaContrast(V1, d, D)), c(D-1, D-1))
-  expect_equal(dim(aiContrast(d, V1, D)), c(D-1, D-1)) ###
-  expect_equal(dim(caContrast(d, D)), c(D-1, D))
-  expect_equal(dim(acContrast(d, D)), c(D, D-1))
-  expect_equal(dim(aaContrast(d, d, D)), c(D-1, D-1))
+  expect_equal(dim(iiTransfer(V1, V2)), c(nrow(V2), nrow(V1)))
+  expect_equal(dim(icTransfer(V1)), c(D, D-1))
+  expect_equal(dim(ciTransfer(V1)), c(D-1, D))
+  expect_equal(dim(iaTransfer(V1, d, D)), c(D-1, D-1))
+  expect_equal(dim(aiTransfer(d, V1, D)), c(D-1, D-1)) ###
+  expect_equal(dim(caTransfer(d, D)), c(D-1, D))
+  expect_equal(dim(acTransfer(d, D)), c(D, D-1))
+  expect_equal(dim(aaTransfer(d, d, D)), c(D-1, D-1))
   
   # Expect certain equal to equality
-  expect_equal(iiContrast(V1, V1), diag(D-1))
-  expect_equal(aaContrast(d,d,D), diag(D-1))
+  expect_equal(iiTransfer(V1, V1), diag(D-1))
+  expect_equal(aaTransfer(d,d,D), diag(D-1))
+  
+  # test ilrContrast with sign matrix
+  S <- rbind(c(1,1,-1,-1), c(1,-1, 0, 0), c(0, 0, 1, -1))
+  expect_equal(dim(ilrContrast(S)), c(3,4))
+})
+
+test_that("ilr produces orthogonal transform",{
+  V <- ilrContrast(4)
+  expect_equal(V%*%t(V), diag(3))
+  expect_equal(t(V)%*%V, diag(4) - 1/4)
+  
+  # Expect error when not a valid sign matrix
+  S <- rbind(c(1,1,1,-1), c(1,-1, 0, 0), c(0, 0, 1, -1))
+  expect_error(ilrContrast(S))
+  
+  S <- rbind(c(1,1,-1,-1), c(1,-1, 0, 0), c(0, 0, 1, -1))
+  V <- ilrContrast(S)
+  expect_equal(V%*%t(V), diag(3))
+  expect_equal(t(V)%*%V, diag(4) - 1/4)
 })
