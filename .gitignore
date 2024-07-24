@@ -8,3 +8,4 @@ inst/doc
 /..Rcheck
 /doc/Benchmarking.html
 /Meta
+/tests/testthat/.Rhistory

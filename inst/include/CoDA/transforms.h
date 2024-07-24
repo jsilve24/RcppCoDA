@@ -11,15 +11,10 @@ using Eigen::Map;
 using Eigen::MatrixBase;
 using Eigen::SparseMatrix;
 
+
 // Convention here is that samples are columns and parts are rows
 // This is notably different than how Driver was originally implemented. Sorry
 // for any confusion.
-// 
-// In contrast to the GLR Functions, none of the functions in this file
-// accept "block" data / covariance matricies. That is, they assume 
-// that there is a single composition and transform, not a blocked transform
-// as the GLR functions allow for. 
-
 
 namespace coda {
 

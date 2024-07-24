@@ -1,8 +1,8 @@
 Package: RcppCoDA
 Type: Package
 Title: Blazing fast compositional data analysis of vectors, matrices, and arrays
-Version: 0.1.1
-Date: 2019-08-05
+Version: 0.2.0
+Date: 2024-07-24
 Authors@R: c(person("Justin", "Silverman", role=c("aut", "cre"),
                      email = "Justin.Silverman@duke.edu"))
 Maintainer: Justin Silverman <Justin.Silverman@duke.edu>
@@ -14,16 +14,16 @@ Description: The goal of RcppCoDA is to create a blazing fast library for the an
   Support for partially compositional arrays;
   A library of functions for transforming between coordinate systems while staying in the simplex;
   The Inter-Quartile Log Ratio Transform; Proportionality Calculations (i.e., Phi Statistics). 
-License: GPL-3
+License: GPL (>= 3)
+Encoding: UTF-8
 URL: https://github.com/jsilve24/RcppCoDA
-Imports: Rcpp (>= 1.0.1), RcppEigen (>= 0.3.3.5.0)
-LinkingTo: Rcpp, RcppEigen
-RoxygenNote: 6.1.1
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+LinkingTo: 
+    Rcpp,
+    RcppEigen
+Imports: 
+    Rcpp
 Suggests: 
-    testthat (>= 2.1.0),
-    knitr,
-    rmarkdown,
-    covr, 
-    microbenchmark, 
-    compositions
-VignetteBuilder: knitr
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3

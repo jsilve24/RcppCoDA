@@ -8,8 +8,5 @@
 #include <CoDA/codamath.h>
 #include <CoDA/contrast.h>
 #include <CoDA/transforms.h>
-#include <CoDA/transfer.h>
-#include <CoDA/proportionality.h>
-#include <CoDA/iqlr.h>
 
 #endif
